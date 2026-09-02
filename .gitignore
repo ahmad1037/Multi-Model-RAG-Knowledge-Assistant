@@ -1,0 +1,47 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Application storage
+storage/uploads/*
+storage/page_images/*
+storage/extracted_images/*
+
+# Keep directories
+!storage/uploads/.gitkeep
+!storage/page_images/.gitkeep
+!storage/extracted_images/.gitkeep
+
+# Documents
+documents/raw/*
+documents/processed/*
+
+!documents/raw/.gitkeep
+!documents/processed/.gitkeep
+
+# Evaluation results
+evaluation/results/*
+!evaluation/results/.gitkeep
