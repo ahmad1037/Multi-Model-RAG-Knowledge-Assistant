@@ -30,6 +30,21 @@ from app.services.document_ingestion import (
     list_documents,
 )
 
+from app.schemas.chunking import (
+    ChunkingRequest,
+    ChunkingResponse,
+    ChunkingRunRead,
+    ChunkRead,
+)
+
+from app.services.document_chunking import (
+    DocumentNotFoundError,
+    DocumentNotReadyError,
+    list_chunking_runs,
+    list_chunks,
+    run_chunking,
+)
+
 
 router = APIRouter(
     tags=["documents"],
@@ -115,6 +130,89 @@ async def upload_document(
                 "Document ingestion failed."
             ),
         )
+
+
+@router.post(
+    "/documents/{document_id}/chunk",
+    response_model=ChunkingResponse,
+)
+def chunk_document(
+    document_id: uuid.UUID,
+    payload: ChunkingRequest,
+    db: DatabaseSession,
+):
+
+    try:
+
+        run, chunks = run_chunking(
+            db=db,
+            document_id=document_id,
+            payload=payload,
+        )
+
+        return {
+            "run": run,
+            "preview": chunks[:5],
+        }
+
+    except DocumentNotFoundError:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Document not found.",
+        )
+
+    except DocumentNotReadyError as exc:
+
+        raise HTTPException(
+            status_code=409,
+            detail=str(exc),
+        )
+
+    except Exception:
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Document chunking failed."
+            ),
+        )
+
+@router.get(
+    "/documents/{document_id}/chunking-runs",
+    response_model=list[ChunkingRunRead],
+)
+def chunking_runs(
+    document_id: uuid.UUID,
+    db: DatabaseSession,
+):
+
+    return list_chunking_runs(
+        db,
+        document_id,
+    )
+
+@router.get(
+    "/chunking-runs/{run_id}/chunks",
+    response_model=list[ChunkRead],
+)
+def chunks_for_run(
+    run_id: uuid.UUID,
+    db: DatabaseSession,
+    limit: int = 100,
+):
+
+    limit = min(
+        max(limit, 1),
+        500,
+    )
+
+    return list_chunks(
+        db,
+        run_id,
+        limit,
+    )
+
 
 
 @router.get(

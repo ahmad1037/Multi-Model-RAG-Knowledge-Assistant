@@ -1,0 +1,31 @@
+{
+  "pages": [
+    {
+      "page_number": 1,
+      "text": "Acme Logistics - Quarterly Report\n\nThis report summarizes freight volume and revenue trends for the fiscal year.\nRevenue was strongest in Q4, driven by holiday shipping demand, while Q3\nshowed a seasonal dip consistent with historical patterns. The chart below\nshows quarterly revenue in millions of dollars."
+    }
+  ],
+  "visuals": [
+    {
+      "asset_index": 0,
+      "page_number": 1,
+      "asset_type": "page",
+      "storage_path": "page_images/4d7cc59f-9661-4734-b2f4-e7350cd4cf3f/page_0001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "fe6f747ce8bd7c5962ec3606ce070070a2df7e77e22f233847b75d5b1327e571",
+      "width_px": 1224,
+      "height_px": 1584
+    },
+    {
+      "asset_index": 1,
+      "page_number": 1,
+      "asset_type": "embedded_image",
+      "storage_path": "extracted_images/4d7cc59f-9661-4734-b2f4-e7350cd4cf3f/page_0001_image_001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "749f91fab526ff68f52e9e077b7a1042dd9bb825c85925311c3d19c344107028",
+      "width_px": 720,
+      "height_px": 480
+    }
+  ],
+  "page_count": 1
+}

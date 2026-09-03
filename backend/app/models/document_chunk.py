@@ -5,19 +5,29 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from app.models.document import Document
+    from app.models.chunking_run import ChunkingRun
 
 
-from uuid import UUID as PyUUID
 import uuid
+
+from pgvector.sqlalchemy import VECTOR
+
 from sqlalchemy import (
-    BigInteger,
     ForeignKey,
     Integer,
     String,
     Text,
+    UniqueConstraint,
 )
-from sqlalchemy.dialects.postgresql import JSONB, UUID as PGUUID
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.dialects.postgresql import (
+    JSONB,
+    UUID,
+)
+from sqlalchemy.orm import (
+    Mapped,
+    mapped_column,
+    relationship,
+)
 
 from app.db.base import Base
 from app.models.mixins import TimestampMixin
@@ -29,17 +39,105 @@ class DocumentChunk(
 ):
     __tablename__ = "document_chunks"
 
+    __table_args__ = (
+        UniqueConstraint(
+            "chunking_run_id",
+            "chunk_index",
+            name="uq_chunking_run_chunk_index",
+        ),
+    )
+
     id: Mapped[uuid.UUID] = mapped_column(
-        PGUUID(as_uuid=True),
+        UUID(as_uuid=True),
         primary_key=True,
         default=uuid.uuid4,
     )
 
-    document_id: Mapped[PyUUID] = mapped_column(
-        PGUUID(as_uuid=True),
-        ForeignKey("documents.id", ondelete="CASCADE"),
+    chunking_run_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey(
+            "chunking_runs.id",
+            ondelete="CASCADE",
+        ),
         nullable=False,
         index=True,
+    )
+
+    document_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey(
+            "documents.id",
+            ondelete="CASCADE",
+        ),
+        nullable=False,
+        index=True,
+    )
+
+    knowledge_base_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey(
+            "knowledge_bases.id",
+            ondelete="CASCADE",
+        ),
+        nullable=False,
+        index=True,
+    )
+
+    chunk_index: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    text: Mapped[str] = mapped_column(
+        Text,
+        nullable=False,
+    )
+
+    heading: Mapped[str | None] = mapped_column(
+        String(500),
+        nullable=True,
+    )
+
+    page_start: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
+
+    page_end: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
+
+    token_count: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    content_hash: Mapped[str] = mapped_column(
+        String(64),
+        nullable=False,
+        index=True,
+    )
+
+    embedding = mapped_column(
+        VECTOR(),
+        nullable=True,
+    )
+
+    embedding_model: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+    embedding_dimension: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
+
+    chunk_metadata: Mapped[dict] = mapped_column(
+        JSONB,
+        nullable=False,
+        default=dict,
     )
 
     document: Mapped["Document"] = relationship(
@@ -47,56 +145,7 @@ class DocumentChunk(
         back_populates="chunks",
     )
 
-    original_filename: Mapped[str] = mapped_column(
-        String(500),
-        nullable=False,
-    )
-
-    stored_filename: Mapped[str] = mapped_column(
-        String(500),
-        nullable=False,
-    )
-
-    storage_path: Mapped[str] = mapped_column(
-        Text,
-        nullable=False,
-    )
-
-    media_type: Mapped[str] = mapped_column(
-        String(150),
-        nullable=False,
-    )
-
-    file_size_bytes: Mapped[int | None] = mapped_column(
-        BigInteger,
-        nullable=True,
-    )
-
-    checksum_sha256: Mapped[str | None] = mapped_column(
-        String(64),
-        nullable=True,
-        index=True,
-    )
-
-    page_count: Mapped[int | None] = mapped_column(
-        Integer,
-        nullable=True,
-    )
-
-    status: Mapped[str] = mapped_column(
-        String(50),
-        nullable=False,
-        default="uploaded",
-        index=True,
-    )
-
-    error_message: Mapped[str | None] = mapped_column(
-        Text,
-        nullable=True,
-    )
-
-    document_metadata: Mapped[dict] = mapped_column(
-        JSONB,
-        nullable=False,
-        default=dict,
+    chunking_run: Mapped["ChunkingRun"] = relationship(
+        "ChunkingRun",
+        back_populates="chunks",
     )

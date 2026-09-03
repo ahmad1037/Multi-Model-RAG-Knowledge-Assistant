@@ -136,3 +136,8 @@ class Document(
         back_populates="document",
         cascade="all, delete-orphan",
     )
+    chunking_runs = relationship(
+        "ChunkingRun",
+        back_populates="document",
+        cascade="all, delete-orphan",
+    )
