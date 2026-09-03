@@ -46,6 +46,13 @@ services:
 
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN}
 
+      STORAGE_ROOT: /storage
+
+      MAX_UPLOAD_SIZE_MB: ${MAX_UPLOAD_SIZE_MB:-25}
+  
+    volumes:
+      - ./storage:/storage
+
     ports:
       - "8000:8000"
 
