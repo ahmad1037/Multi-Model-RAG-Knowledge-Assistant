@@ -1,3 +1,11 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+    from app.models.visual_asset import VisualAsset
+
 import uuid
 
 from sqlalchemy import String, Text
@@ -46,6 +54,11 @@ class KnowledgeBase(
 
     conversations = relationship(
         "Conversation",
+        back_populates="knowledge_base",
+        cascade="all, delete-orphan",
+    )
+    visual_assets: Mapped[list["VisualAsset"]] = relationship(
+        "VisualAsset",
         back_populates="knowledge_base",
         cascade="all, delete-orphan",
     )

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from app.models.document_chunk import DocumentChunk
-    from backend.app.models.knowledge_base import KnowledgeBase
+    from app.models.knowledge_base import KnowledgeBase
 
 
 import uuid
@@ -16,6 +16,7 @@ from sqlalchemy import (
     Integer,
     String,
     Text,
+    UniqueConstraint,
 )
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -29,6 +30,13 @@ class Document(
     Base,
 ):
     __tablename__ = "documents"
+    __table_args__ = (
+        UniqueConstraint(
+            "knowledge_base_id",
+            "checksum_sha256",
+            name="uq_kb_document_checksum",
+        ),
+    )      
 
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),

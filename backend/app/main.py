@@ -6,7 +6,9 @@ from app.core.config import settings
 from app.api.routes.knowledge_bases import (
     router as knowledge_bases_router,
 )
-
+from app.api.routes.documents import (
+    router as documents_router,
+)
 
 app = FastAPI(
     title="Multimodal RAG Knowledge Assistant API",
@@ -17,6 +19,10 @@ app = FastAPI(
     version="0.1.0",
 )
 
+app.include_router(
+    documents_router,
+    prefix="/api/v1",
+)
 
 app.add_middleware(
     CORSMiddleware,

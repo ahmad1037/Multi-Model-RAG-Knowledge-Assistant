@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from app.models.document import Document
-    from backend.app.models.visual_asset import VisualAsset
 
 
 from uuid import UUID as PyUUID
@@ -100,11 +99,4 @@ class DocumentChunk(
         JSONB,
         nullable=False,
         default=dict,
-    )
-
-    visual_assets: Mapped[list["VisualAsset"]] = relationship(
-        "VisualAsset",
-        back_populates="document_chunk",
-        cascade="all, delete-orphan",
-        passive_deletes=True,
     )
