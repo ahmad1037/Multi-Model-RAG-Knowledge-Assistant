@@ -9,15 +9,33 @@ on:
     branches:
       - main
 
-
 jobs:
-
   backend:
-
     runs-on: ubuntu-latest
 
-    steps:
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.6-pg17-bookworm
 
+        env:
+          POSTGRES_USER: rag_user
+          POSTGRES_PASSWORD: rag_password
+          POSTGRES_DB: rag_test
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd "pg_isready -U rag_user -d rag_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql+psycopg://rag_user:rag_password@localhost:5432/rag_test
+      FRONTEND_ORIGIN: http://localhost:5173
+
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -35,17 +53,24 @@ jobs:
         working-directory: backend
         run: uv run ruff check .
 
+      - name: Enable pgvector
+        run: >-
+          docker exec "${{ job.services.postgres.id }}"
+          psql -U rag_user -d rag_test
+          -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+      - name: Apply migrations
+        working-directory: backend
+        run: uv run alembic upgrade head
+
       - name: Test backend
         working-directory: backend
         run: uv run pytest
 
-
   frontend:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 

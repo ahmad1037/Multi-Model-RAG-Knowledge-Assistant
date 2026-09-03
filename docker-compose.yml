@@ -29,6 +29,14 @@ services:
   backend:
     build:
       context: ./backend
+    command:
+    - sh
+    - -c
+    - >
+      uv run alembic upgrade head &&
+      uv run uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8000
 
     environment:
       APP_ENV: ${APP_ENV}
@@ -44,6 +52,18 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/docs', timeout=2)"
+        ]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
 
 
   frontend:
@@ -57,8 +77,8 @@ services:
       - "5173:5173"
 
     depends_on:
-      - backend
-
+      backend:
+        condition: service_healthy
 
 volumes:
   postgres_data:
