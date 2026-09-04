@@ -40,6 +40,12 @@ services:
 
     environment:
       APP_ENV: ${APP_ENV}
+      TEXT_EMBEDDING_MODEL: ${TEXT_EMBEDDING_MODEL}
+      TEXT_EMBEDDING_DIMENSION: ${TEXT_EMBEDDING_DIMENSION}
+      TEXT_EMBEDDING_BATCH_SIZE: ${TEXT_EMBEDDING_BATCH_SIZE}
+      TEXT_EMBEDDING_DEVICE: ${TEXT_EMBEDDING_DEVICE:-cuda}
+      TEXT_QUERY_INSTRUCTION: ${TEXT_QUERY_INSTRUCTION}
+      HNSW_EF_SEARCH: ${HNSW_EF_SEARCH}
 
       DATABASE_URL: >-
         postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
@@ -49,9 +55,18 @@ services:
       STORAGE_ROOT: /storage
 
       MAX_UPLOAD_SIZE_MB: ${MAX_UPLOAD_SIZE_MB:-25}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
   
     volumes:
-      - ./storage:/storage
+    - ./storage:/storage
+    - huggingface_cache:/root/.cache/huggingface
 
     ports:
       - "8000:8000"
@@ -89,3 +104,4 @@ services:
 
 volumes:
   postgres_data:
+  huggingface_cache:

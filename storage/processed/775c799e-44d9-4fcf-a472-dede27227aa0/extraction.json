@@ -1,0 +1,10 @@
+{
+  "pages": [
+    {
+      "page_number": null,
+      "text": "## Model Comparison\n\n| Model | MAE | RMSE | SMAPE | R² |\n|---|---:|---:|---:|---:|\n| Gradient Boosting | 67.27 | 214.09 | 65.66% | 0.9704 |\n| Tuned XGBoost | 72.24 | 235.40 | 68.81% | 0.9642 |\n\nGradient Boosting was selected as the final production model\nbecause it achieved the lowest MAE and RMSE and the highest R²\non the held-out test set."
+    }
+  ],
+  "visuals": [],
+  "page_count": null
+}

@@ -120,7 +120,7 @@ class DocumentChunk(
     )
 
     embedding = mapped_column(
-        VECTOR(),
+        VECTOR(384),
         nullable=True,
     )
 

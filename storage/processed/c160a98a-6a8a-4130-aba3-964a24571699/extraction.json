@@ -1,0 +1,10 @@
+{
+  "pages": [
+    {
+      "page_number": null,
+      "text": "\nPROJECT RESULTS\n\nGradient Boosting achieved the\nbest final performance.\n\nMODEL COMPARISON\n\nThe tuned XGBoost model was also\nevaluated but produced higher RMSE.\n\nDEPLOYMENT\n\nThe final model was served using\nFastAPI and Docker.\n"
+    }
+  ],
+  "visuals": [],
+  "page_count": null
+}

@@ -9,6 +9,9 @@ from app.api.routes.knowledge_bases import (
 from app.api.routes.documents import (
     router as documents_router,
 )
+from app.api.routes.retrieval import (
+    router as retrieval_router,
+)
 
 app = FastAPI(
     title="Multimodal RAG Knowledge Assistant API",
@@ -20,7 +23,17 @@ app = FastAPI(
 )
 
 app.include_router(
+    knowledge_bases_router,
+    prefix="/api/v1",
+)
+
+app.include_router(
     documents_router,
+    prefix="/api/v1",
+)
+
+app.include_router(
+    retrieval_router,
     prefix="/api/v1",
 )
 
@@ -38,10 +51,7 @@ app.include_router(
     prefix="/api/v1",
 )
 
-app.include_router(
-    knowledge_bases_router,
-    prefix="/api/v1",
-)
+
 
 
 @app.get("/")

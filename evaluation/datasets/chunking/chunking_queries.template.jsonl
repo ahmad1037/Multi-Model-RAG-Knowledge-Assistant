@@ -1,1 +1,1 @@
-{"id":"replace-me-001","knowledge_base_slug":"replace-me","question":"Replace this with a manually verified question.","expected_document":"replace-me.pdf","expected_pages":[1],"expected_terms":["replace-me"]}
+{"id":"751914b8-b430-42b1-8d9e-65a3595f9c5f","knowledge_base_slug":"test-kb-42c56fa2de","question":"Why was Gradient Boosting selected?","expected_document":"model_comparison.md","expected_pages":[],"expected_terms":["343"]}

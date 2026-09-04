@@ -1,4 +1,5 @@
 import uuid
+import logging
 
 from typing import Annotated
 
@@ -45,6 +46,18 @@ from app.services.document_chunking import (
     run_chunking,
 )
 
+from app.schemas.embedding import (
+    EmbedDocumentRequest,
+    EmbedDocumentResponse,
+)
+
+from app.services.text_embeddings import (
+    ActiveChunkingRunNotFoundError,
+    DocumentEmbeddingNotReadyError,
+    embed_document,
+)
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(
     tags=["documents"],
@@ -213,7 +226,43 @@ def chunks_for_run(
         limit,
     )
 
+@router.post(
+    "/documents/{document_id}/embed",
+    response_model=EmbedDocumentResponse,
+)
+def embed_document_chunks(
+    document_id: uuid.UUID,
+    payload: EmbedDocumentRequest,
+    db: DatabaseSession,
+):
 
+    try:
+
+        return embed_document(
+            db=db,
+            document_id=document_id,
+            force=payload.force,
+        )
+
+    except (
+        ActiveChunkingRunNotFoundError,
+        DocumentEmbeddingNotReadyError,
+    ) as exc:
+
+        raise HTTPException(
+            status_code=409,
+            detail=str(exc),
+        )
+
+    except Exception as exce:
+        logger.exception(
+            "Document embedding failed for document_id=%s",
+            document_id,
+        )
+        raise HTTPException(
+            status_code=500,
+            detail="Document embedding failed.",
+        ) from exce
 
 @router.get(
     "/knowledge-bases/{knowledge_base_id}/documents",

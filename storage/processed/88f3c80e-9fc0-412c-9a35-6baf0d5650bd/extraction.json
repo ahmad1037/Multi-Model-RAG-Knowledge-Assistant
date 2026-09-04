@@ -1,0 +1,35 @@
+{
+  "pages": [
+    {
+      "page_number": 1,
+      "text": "                  Freight Rate Prediction\n\nML Engineering Assessment — Final Technical Report\n\n\nObjective: predict posted freight rates for 12,000 future loads in November–December 2025 and generate the\nrequired 31-day December scenario forecast.\n\n1. Data Understanding & Quality\nThe labeled dataset contains 48,000 loads from January 1 through October 31, 2025. Key findings were 300\nmissing weights, 292 non-positive weights, and 374 missing market-index values. There were no duplicate rows or\nduplicate load IDs. Non-positive weights are converted to missing and flagged rather than dropping affected loads.\n\nGeographic consistency was checked with Haversine straight-line distance. The supplied route distances are\ngenerally longer than geographic distance, which is consistent with road-network travel. A small upper tail of\ndistance/geodesic ratios was inspected rather than blindly removed.\n\n2. Validation Strategy\nBecause the assessment is explicitly future-facing, a random split would not faithfully represent deployment.\nModel selection used a chronological holdout: January–August 2025 for development training and\nSeptember–October 2025 for validation. After selection, the final model was retrained on all 48,000 labeled loads.\n\n3. Feature Engineering\nFeatures include Haversine distance, actual/geographic distance ratio, distance residual, log distance, log weight,\nroute identifier, equipment, month, day-of-week, day-of-year, weekend flag, elapsed time, market×quote\ninteraction, and quote-per-mile. Location, route, and equipment categoricals are handled natively by CatBoost.\n\n4. Model Comparison\n\n        Model                               MAE         RMSE           R²\n\n          Linear Regression                                          $166.97          $712.86         0.7818\n\n         Ridge                                                    $145.79          $646.75         0.8204\n\n       Random Forest                                            $181.77          $663.50         0.8110\n\n          Gradient Boosting                                          $134.41          $638.28         0.8251\n\n        XGBoost                                                  $158.72          $654.36         0.8161\n\n         CatBoost Direct Rate                                       $115.62          $634.23         0.8273\n\n         CatBoost Rate-per-Mile                                    $100.80          $631.25         0.8289\n\n        Ensemble 25/75                                           $102.17          $631.57         0.8287\n\nMAE is the primary selection metric because it expresses average absolute pricing error directly in dollars and is less dominated by\nextreme observations than RMSE.\n\n5. Final Model\nThe selected model is CatBoost Rate-per-Mile. It predicts rate_per_mile = posted_rate / distance and reconstructs\npredicted_rate = predicted_rate_per_mile × distance. This reduced chronological validation MAE to $100.80,\noutperforming direct-rate CatBoost ($115.62 MAE) and the classical boosting baselines."
+    },
+    {
+      "page_number": 2,
+      "text": "6. Productionization & Validation\nThe repository contains a reproducible training entry point, explicit feature construction, deterministic random\nseeds, model-comparison artifacts, prediction generation, and the supplied scorer. The scorer successfully\nvalidated 12,000 final predictions and 31 December predictions and generated the December chart.\n\n7. Limitations & Next Steps\nFor production, I would add rolling-origin cross-validation, lane-level monitoring, feature drift detection, periodic\nretraining, and a business cost-weighted error metric if pricing asymmetry is available. The assessment\nconfiguration favors reproducibility and clear model selection over exhaustive hyperparameter search."
+    }
+  ],
+  "visuals": [
+    {
+      "asset_index": 0,
+      "page_number": 1,
+      "asset_type": "page",
+      "storage_path": "page_images/88f3c80e-9fc0-412c-9a35-6baf0d5650bd/page_0001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "ac6fd2dad8e8601a3be227728153a832807132785dee7abc56df0c5acb9a0f3b",
+      "width_px": 1191,
+      "height_px": 1684
+    },
+    {
+      "asset_index": 1,
+      "page_number": 2,
+      "asset_type": "page",
+      "storage_path": "page_images/88f3c80e-9fc0-412c-9a35-6baf0d5650bd/page_0002.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "4958209674aa156977a35a921fc490f7203323d69def8c619283112fce357781",
+      "width_px": 1191,
+      "height_px": 1684
+    }
+  ],
+  "page_count": 2
+}

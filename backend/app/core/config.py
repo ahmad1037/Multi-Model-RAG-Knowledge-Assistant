@@ -8,6 +8,7 @@ from pydantic_settings import (
 
 
 class Settings(BaseSettings):
+
     app_env: str = "development"
 
     database_url: str = (
@@ -15,11 +16,32 @@ class Settings(BaseSettings):
         "rag_user:rag_password@localhost:5432/rag_db"
     )
 
-    frontend_origin: str = "http://localhost:5173"
+    frontend_origin: str = (
+        "http://localhost:5173"
+    )
 
-    storage_root: Path = Path("../storage")
+    storage_root: Path = Path(
+        "../storage"
+    )
 
     max_upload_size_mb: int = 25
+
+    text_embedding_model: str = (
+        "BAAI/bge-small-en-v1.5"
+    )
+
+    text_embedding_dimension: int = 384
+
+    text_embedding_batch_size: int = 32
+
+    text_embedding_device: str = "cpu"
+
+    text_query_instruction: str = (
+        "Represent this sentence for "
+        "searching relevant passages: "
+    )
+
+    hnsw_ef_search: int = 100
 
     model_config = SettingsConfigDict(
         env_file=(
@@ -29,7 +51,6 @@ class Settings(BaseSettings):
         case_sensitive=False,
         extra="ignore",
     )
-
 
 @lru_cache
 def get_settings() -> Settings:

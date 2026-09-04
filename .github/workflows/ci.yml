@@ -11,7 +11,11 @@ on:
 
 jobs:
   backend:
-    runs-on: ubuntu-latest
+    runs-on:
+      - self-hosted
+      - linux
+      - x64
+      - gpu
 
     services:
       postgres:
@@ -34,6 +38,7 @@ jobs:
     env:
       DATABASE_URL: postgresql+psycopg://rag_user:rag_password@localhost:5432/rag_test
       FRONTEND_ORIGIN: http://localhost:5173
+      TEXT_EMBEDDING_DEVICE: cuda
       STORAGE_ROOT: /tmp/rag-test-storage
       MAX_UPLOAD_SIZE_MB: 25
     steps:
