@@ -143,9 +143,22 @@ def semantic_search(
         )
     )
 
-    rows = db.execute(
-        statement
-    ).all()
+    try:
+
+        rows = db.execute(
+            statement
+        ).all()
+
+    finally:
+
+        if mode == "exact":
+
+            db.execute(
+                text(
+                    "SET LOCAL "
+                    "enable_indexscan = on"
+                )
+            )
 
     if not rows:
 

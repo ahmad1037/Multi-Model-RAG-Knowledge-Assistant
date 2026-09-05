@@ -24,7 +24,24 @@ from app.schemas.retrieval import (
     SemanticSearchResponse,
 )
 
+from app.rag.retrieval.lexical import (
+    lexical_search,
+)
 
+from app.schemas.retrieval import (
+    LexicalSearchHit,
+    LexicalSearchRequest,
+)   
+
+from app.schemas.hybrid_retrieval import (
+    HybridSearchRequest,
+    HybridSearchResponse,
+)
+
+from app.services.hybrid_retrieval import (
+    NoHybridResultsError,
+    hybrid_search,
+)
 router = APIRouter(
     tags=["retrieval"],
 )
@@ -90,5 +107,74 @@ def search_knowledge_base(
             status_code=500,
             detail=(
                 "Semantic search failed."
+            ),
+        )
+
+@router.post(
+    (
+        "/knowledge-bases/"
+        "{knowledge_base_id}/"
+        "lexical-search"
+    ),
+    response_model=list[
+        LexicalSearchHit
+    ],
+)
+def lexical_search_endpoint(
+    knowledge_base_id: uuid.UUID,
+    payload: LexicalSearchRequest,
+    db: DatabaseSession,
+):
+
+    return lexical_search(
+        db=db,
+        knowledge_base_id=(
+            knowledge_base_id
+        ),
+        query=payload.query,
+        top_k=payload.top_k,
+    )
+
+@router.post(
+    (
+        "/knowledge-bases/"
+        "{knowledge_base_id}/"
+        "hybrid-search"
+    ),
+    response_model=(
+        HybridSearchResponse
+    ),
+)
+def hybrid_search_endpoint(
+    knowledge_base_id: uuid.UUID,
+    payload: HybridSearchRequest,
+    db: DatabaseSession,
+):
+
+    try:
+
+        return hybrid_search(
+            db=db,
+
+            knowledge_base_id=(
+                knowledge_base_id
+            ),
+
+            payload=payload,
+        )
+
+    except NoHybridResultsError as exc:
+
+        raise HTTPException(
+            status_code=409,
+            detail=str(exc),
+        )
+
+    except Exception:
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Hybrid retrieval failed."
             ),
         )

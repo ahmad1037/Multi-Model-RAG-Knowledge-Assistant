@@ -18,17 +18,18 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
-)
-from sqlalchemy.dialects.postgresql import (
-    JSONB,
-    UUID,
+    Computed,
 )
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
     relationship,
 )
-
+from sqlalchemy.dialects.postgresql import (
+    JSONB,
+    TSVECTOR,
+    UUID,
+)
 from app.db.base import Base
 from app.models.mixins import TimestampMixin
 
@@ -85,6 +86,31 @@ class DocumentChunk(
 
     chunk_index: Mapped[int] = mapped_column(
         Integer,
+        nullable=False,
+    )
+
+    search_vector: Mapped[object] = mapped_column(
+        TSVECTOR,
+        Computed(
+            """
+            setweight(
+                to_tsvector(
+                    'english',
+                    coalesce(heading, '')
+                ),
+                'A'
+            )
+            ||
+            setweight(
+                to_tsvector(
+                    'english',
+                    coalesce(text, '')
+                ),
+                'B'
+            )
+            """,
+            persisted=True,
+        ),
         nullable=False,
     )
 

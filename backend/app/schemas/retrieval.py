@@ -70,3 +70,40 @@ class SemanticSearchResponse(
     results: list[
         SemanticSearchHit
     ]
+
+class LexicalSearchRequest(
+    BaseModel
+):
+
+    query: str = Field(
+        min_length=2,
+        max_length=2000,
+    )
+
+    top_k: int = Field(
+        default=10,
+        ge=1,
+        le=50,
+    )
+
+class LexicalSearchHit(
+    BaseModel
+):
+
+    chunk_id: uuid.UUID
+
+    document_id: uuid.UUID
+
+    document_name: str
+
+    chunk_index: int
+
+    heading: str | None
+
+    page_start: int | None
+
+    page_end: int | None
+
+    text: str
+
+    lexical_score: float

@@ -1,0 +1,3 @@
+{"id":"hybrid-text-001","knowledge_base_slug":"retail-sales-forecasting","question":"Why was Gradient Boosting selected?","expected_document":"model_comparison.md","expected_pages":[],"expected_evidence_types":["text_chunk"]}
+{"id":"hybrid-visual-001","knowledge_base_slug":"retail-sales-forecasting","question":"Find the model comparison chart","expected_document":"retail_report.pdf","expected_pages":[7],"expected_evidence_types":["visual_asset"]}
+{"id":"hybrid-mixed-001","knowledge_base_slug":"retail-sales-forecasting","question":"Compare Gradient Boosting with XGBoost","expected_document":"retail_report.pdf","expected_pages":[7],"expected_evidence_types":["text_chunk","visual_asset"]}
