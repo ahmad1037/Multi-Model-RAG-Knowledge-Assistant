@@ -63,6 +63,30 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    reranker_model: str = (
+        "BAAI/bge-reranker-base"
+    )
+
+    reranker_device: str = "auto"
+
+    reranker_batch_size: int = 8
+
+    reranker_max_length: int = 512
+
+    rerank_candidate_k: int = 20
+
+    rerank_top_k: int = 10
+
+    context_max_tokens: int = 1800
+
+    context_max_items: int = 8
+
+    context_max_visual_items: int = 3
+
+    context_max_items_per_page: int = 2
+
+    visual_context_max_chars: int = 2500
+
 @lru_cache
 def get_settings() -> Settings:
     return Settings()

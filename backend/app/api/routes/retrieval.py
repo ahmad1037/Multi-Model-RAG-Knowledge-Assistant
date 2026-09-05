@@ -42,6 +42,20 @@ from app.services.hybrid_retrieval import (
     NoHybridResultsError,
     hybrid_search,
 )
+
+from app.schemas.reranking import (
+    RerankSearchRequest,
+    RerankSearchResponse,
+)
+
+from app.services.rerank_search import (
+    retrieve_and_rerank,
+)
+
+from app.services.context_pipeline import (
+    retrieve_rerank_and_select,
+)
+
 router = APIRouter(
     tags=["retrieval"],
 )
@@ -178,3 +192,56 @@ def hybrid_search_endpoint(
                 "Hybrid retrieval failed."
             ),
         )
+
+
+@router.post(
+    (
+        "/knowledge-bases/"
+        "{knowledge_base_id}/"
+        "rerank-search"
+    ),
+    response_model=(
+        RerankSearchResponse
+    ),
+)
+def rerank_search_endpoint(
+    knowledge_base_id: uuid.UUID,
+    payload: RerankSearchRequest,
+    db: DatabaseSession,
+):
+
+    return retrieve_and_rerank(
+        db=db,
+
+        knowledge_base_id=(
+            knowledge_base_id
+        ),
+
+        payload=payload,
+    )
+
+@router.post(
+    (
+        "/knowledge-bases/"
+        "{knowledge_base_id}/"
+        "context"
+    )
+)
+def context_endpoint(
+    knowledge_base_id: uuid.UUID,
+    payload: LexicalSearchRequest,
+    db: DatabaseSession,
+):
+
+    return (
+        retrieve_rerank_and_select(
+            db=db,
+
+            knowledge_base_id=(
+                knowledge_base_id
+            ),
+
+            query=payload.query,
+        )
+    )
+
