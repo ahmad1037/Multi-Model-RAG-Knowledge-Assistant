@@ -1,0 +1,3 @@
+{"id":"visual-001","knowledge_base_slug":"retail-sales-forecasting","query":"chart comparing Gradient Boosting and XGBoost","expected_document":"retail_report.pdf","expected_pages":[7],"expected_asset_type":"page"}
+{"id":"visual-002","knowledge_base_slug":"retail-sales-forecasting","query":"model performance comparison table","expected_document":"retail_report.pdf","expected_pages":[7],"expected_asset_type":"page"}
+{"id":"visual-003","knowledge_base_slug":"retail-sales-forecasting","query":"sales forecast line chart","expected_document":"retail_report.pdf","expected_pages":[12],"expected_asset_type":"page"}

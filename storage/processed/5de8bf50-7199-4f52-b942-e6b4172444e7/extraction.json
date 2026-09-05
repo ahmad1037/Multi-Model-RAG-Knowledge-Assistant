@@ -1,0 +1,163 @@
+{
+  "pages": [
+    {
+      "page_number": 1,
+      "text": "RETAIL SALES\nFORECASTING\n\n\nModel evaluation, feature drivers, and business decision insights\n\n\n\n\n\n                                             FINAL PRODUCTION MODEL\n\n\n          Gradient Boosting Regressor\n\n\n\n\n\nPortfolio analysis report | Prepared from supplied project artifacts"
+    },
+    {
+      "page_number": 2,
+      "text": "Retail Sales Forecasting\n\n\n01 Executive Summary\n\n\n Gradient Boosting was selected as the final production model after evaluation on a held-out future test\n\n period. It achieved the lowest reported final-test MAE and RMSE and the highest R2 when compared with\n\n the tuned XGBoost alternative.\n\n\n   67.27      214.09     65.66%     0.9704\n\n\n          FINAL MAE                   FINAL RMSE                  FINAL SMAPE                   FINAL R2\n\n\n\n  Decision             The model explains approximately 97% of outcome variance on the\n  takeaway             reported held-out test period, but the high SMAPE indicates that\n                          percentage error remains material for low-volume series.\n\n\n\n What the model is learning\n\n Lagged sales and rolling averages dominate the importance ranking. The top three inputs -\n\n rolling_mean_7, lag_7, and lag_1 - account for 77.9% of total reported importance. This confirms that\n\n recent demand history is the primary predictive signal.\n\n Recommended use\n\n Deploy forecasts as decision support for replenishment, procurement, promotion planning, and\n\n store-level review. Monitor error by store and product family, and retain human review for unusual\n\n events or low-volume items.\n\n\n\n\n\n                                                                                                      Page 2"
+    },
+    {
+      "page_number": 3,
+      "text": "Retail Sales Forecasting\n\n\n02 Data and Exploratory Findings\n\n\n The supplied EDA summary identifies the principal behavioral patterns but leaves dataset size, period,\n\n store count, product-family count, and missing-value totals unspecified. Those fields are intentionally\n\n reported as unavailable rather than estimated.\n\n\n\n  EDA topic             Reported finding                                Implication\n\n                                                                         Forecasting should retain calendar and lag\n   Sales behavior         Seasonal fluctuations are present.\n                                                                               variables.\n\n                         Promotions are associated with higher          Promotion inputs support planning and scenario\n   Promotions\n                        average sales.                                    analysis.\n\n                           Certain stores consistently generate more      Monitor and potentially calibrate performance\n   Store differences\n                         revenue.                                 by location.\n\n   Product families      Demand varies considerably across families.     Family-level error analysis remains important.\n\n                         Handling strategy not specified in supplied     Document imputation and leakage controls\n   Missing values\n                      summary.                                    before production.\n\n\n\n Feature design reflected in the model\n\n The feature set combines recent lags (1, 7, 14, and 28 days), rolling means and variability, expanding\n\n history, calendar fields, promotions, holidays, store identifiers, and product-family indicators. This is\n\n appropriate for a retail panel where both temporal dynamics and cross-sectional differences matter.\n\n Evaluation design\n\n The supplied narrative describes a held-out future test period. This is preferable to a random split for\n\n forecasting because it more closely represents how predictions will be used after deployment and\n\n reduces temporal leakage risk.\n\n\n\n\n\n                                                                                                      Page 3"
+    },
+    {
+      "page_number": 4,
+      "text": "Retail Sales Forecasting\n\n\n03 Candidate Model Benchmark\n\n\n Six candidate models were compared on the supplied validation results. No single model dominated\n\n every metric: Random Forest produced the lowest validation MAE and SMAPE, while Gradient Boosting\n\n produced the lowest validation RMSE and highest R2.\n\n\n\n\n\n  Model                     MAE            RMSE             SMAPE            R2\n\n   Linear Regression                93.84             340.55            99.35%             0.9375\n\n   Decision Tree                   102.12            462.07            59.36%             0.8850\n\n  Random Forest                  69.87             298.13            57.04%             0.9521\n\n   Gradient Boosting                72.72             290.10            61.85%             0.9547\n\n   HistGradientBoosting             72.94             296.89            61.33%             0.9525\n\n  XGBoost                        71.20             312.48            60.74%             0.9474\n\n\n\n\n\n                                                                                                      Page 4"
+    },
+    {
+      "page_number": 5,
+      "text": "Retail Sales Forecasting\n\n\n04 Final Held-out Test Decision\n\n\n The final artifacts compare Gradient Boosting with a tuned XGBoost model on the held-out test period.\n\n Gradient Boosting wins on all four reported metrics and is therefore the justified production choice.\n\n\n\n\n\n  Model                       MAE            RMSE             SMAPE            R2\n\n   Gradient Boosting                   67.27             214.09            65.66%             0.9704\n\n  Tuned XGBoost                     72.24             235.40            68.81%             0.9642\n\n\n\n Measured advantage\n\n Relative to tuned XGBoost, Gradient Boosting reduces MAE by 4.97 units (6.9%) and RMSE by 21.31 units\n\n (9.1%). Its R2 is higher by 0.0062.\n\n Interpretation caution\n\n The business_analysis artifact reports a tuned XGBoost validation RMSE of 295.65, while the\n\n final_test_results file reports an RMSE of 235.40. These values appear to represent different evaluation\n\n stages. They are preserved separately in this report and are not treated as interchangeable.\n\n\n\n\n\n                                                                                                      Page 5"
+    },
+    {
+      "page_number": 6,
+      "text": "Retail Sales Forecasting\n\n\n05 Forecast Drivers\n\n\n\n\n\n   77.9%      91.1%      40.6%      22.4%\n\n\n       TOP 3 SHARE               TOP 5 SHARE              ROLLING MEAN 7                LAG 7\n\n\n\n The concentration in lag and rolling features indicates strong persistence and weekly recurrence.\n\n Calendar, holiday, promotion, store, and family indicators add incremental signal, but their individual\n\n importance is much smaller in this fitted model.\n\n Operational implication\n\n Reliable and timely historical sales feeds are more important than any single auxiliary field. Data-quality\n\n monitoring should prioritize missing dates, late sales records, duplicate transactions, and leakage in\n\n rolling calculations.\n\n\n\n\n\n                                                                                                      Page 6"
+    },
+    {
+      "page_number": 7,
+      "text": "Retail Sales Forecasting\n\n\n06 Business Applications\n\n\n\n   Decision area       How the forecast helps                        Suggested control\n\n                           Anticipate demand and reduce stockouts or      Review high-error and low-volume items\n   Inventory\n                          overstock.                                      manually.\n\n                          Translate expected demand into purchasing      Use lead-time and supplier constraints outside\n  Procurement\n                           plans.                                          the model.\n\n                         Estimate expected demand when promotion      Separate association from causal promotion\n   Promotions\n                            flags are active.                                                       lift.\n\n                        Support staffing and store-level replenishment\n   Store planning                                                       Track accuracy separately for each location.\n                           decisions.\n\n                                                                       Overlay known events and management\n  Demand planning      Provide a consistent forward-looking baseline.\n                                                                        adjustments.\n\n\n\n Deployment recommendation\n\n Deploy the Gradient Boosting model as a monitored decision-support service. Produce forecasts on a\n\n fixed schedule, retain prediction timestamps and model versions, and compare realized sales with\n\n forecasts as data arrives.\n\n\n\n   Monitoring layer               Recommended measure\n\n   Overall accuracy                MAE, RMSE, SMAPE, and R2 by forecast horizon\n\n  Segment accuracy                  Error by store, product family, and promotion status\n\n   Bias                        Mean signed error to detect persistent over- or under-forecasting\n\n  Data quality                       Missing dates, stale inputs, unusual lags, and schema changes\n\n  Model drift                           Rolling comparison against naive and seasonal baselines\n\n\n\n\n\n                                                                                                      Page 7"
+    },
+    {
+      "page_number": 8,
+      "text": "Retail Sales Forecasting\n\n\n07 Limitations and Next Steps\n\n\n 1. External economic variables and unexpected events are not represented in the supplied feature\n\n summary.\n\n 2. Accuracy varies across stores and product families; aggregate metrics can conceal weak segments.\n\n 3. The reported SMAPE remains high despite strong R2, so low-volume series require special attention.\n\n 4. Promotion features show predictive association but do not establish causal lift.\n\n 5. Dataset dimensions, date range, missing-value counts, bias, and store/category rankings were blank in\n\n the supplied narrative files.\n\n\n\n Prioritized next steps\n\n\n   Priority      Action                                           Expected value\n\n  1         Add store-family error and bias dashboards.          Expose where aggregate performance is misleading.\n\n             Benchmark against naive and seasonal-naive\n  2                                                             Prove incremental business value.\n                forecasts.\n\n  3            Investigate high SMAPE on low-volume series.         Improve percentage-error reliability.\n\n                                                                Capture holidays, events, macro conditions, and\n  4         Add external variables where available.\n                                                                          disruptions.\n\n  5          Automate retraining and drift alerts.                   Maintain accuracy as demand patterns change.\n\n\n\n Final recommendation\n\n Proceed with Gradient Boosting as the production baseline. Treat the system as a forecast assistant, not\n\n an autonomous inventory controller, until segment-level monitoring, bias analysis, and baseline\n\n comparisons are complete.\n\n\n\n\n\n                                                                                                      Page 8"
+    },
+    {
+      "page_number": 9,
+      "text": "Retail Sales Forecasting\n\n\nA Source and Metric Notes\n\n\n\n  Source artifact                       Contribution to this report\n\n   business_insights.md                  Final model, final-test metrics, business implications, and limitations.\n\n  model_comparison(1).md            Held-out comparison between Gradient Boosting and tuned XGBoost.\n\n   final_test_results.csv                  Full-precision tuned XGBoost final-test metrics.\n\n   model_results.csv                  Six-model validation benchmark.\n\n   feature_importance.csv             Feature ranking used in the importance chart.\n\n  eda_summary.md                    Qualitative EDA findings; several descriptive fields were incomplete.\n\n                                 Tuned XGBoost validation RMSE and decision-support framing; several fields were\n   business_analysis.md\n                                      incomplete.\n\n\n\n Metric definitions\n\n\n   Metric                    Interpretation\n\n  MAE                  Average absolute forecast error in target units; lower is better.\n\n  RMSE                   Square-root mean squared error; penalizes large misses more heavily.\n\n  SMAPE                Symmetric percentage error; can remain volatile around small actual values.\n\n  R2                    Share of target variance explained relative to a mean baseline; higher is better.\n\n\n\n Reporting note\n\n  All numerical claims originate from the supplied files or are arithmetic comparisons derived directly from\n\n them. Blank source fields were not inferred. Validation and final-test results are presented as separate\n\n evaluation stages.\n\n\n\n\n\n                                                                                                      Page 9"
+    }
+  ],
+  "visuals": [
+    {
+      "asset_index": 0,
+      "page_number": 1,
+      "asset_type": "page",
+      "storage_path": "page_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "a5f4d920afb76e545e9c647b27774bb298d05941183414cbaf388b50ee7aeebf",
+      "width_px": 1191,
+      "height_px": 1684
+    },
+    {
+      "asset_index": 1,
+      "page_number": 2,
+      "asset_type": "page",
+      "storage_path": "page_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0002.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "a636643ba6945e4bdaad585df7508422ae795803eb12e7d1736b5d5f12e7dee8",
+      "width_px": 1191,
+      "height_px": 1684
+    },
+    {
+      "asset_index": 2,
+      "page_number": 3,
+      "asset_type": "page",
+      "storage_path": "page_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0003.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "11a9681871ae2ce7e62ed47a28dd3bbebfccb20e44c86d24a9b7f825ac39cca3",
+      "width_px": 1191,
+      "height_px": 1684
+    },
+    {
+      "asset_index": 3,
+      "page_number": 4,
+      "asset_type": "page",
+      "storage_path": "page_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0004.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "04a905fce2020486eacfe4e4f02ef360594289624656a7663f7a35c35d814611",
+      "width_px": 1191,
+      "height_px": 1684
+    },
+    {
+      "asset_index": 4,
+      "page_number": 4,
+      "asset_type": "embedded_image",
+      "storage_path": "extracted_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0004_image_001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "97445f138499ca02540f89cfd7f32607836ccf3e5db70f440c61d1af438e6ead",
+      "width_px": 2076,
+      "height_px": 1352
+    },
+    {
+      "asset_index": 5,
+      "page_number": 5,
+      "asset_type": "page",
+      "storage_path": "page_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0005.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "734042f2ae47fb0928dc84f29825d4574f8a9e86b33876c3c6dc4d91e92e44fe",
+      "width_px": 1191,
+      "height_px": 1684
+    },
+    {
+      "asset_index": 6,
+      "page_number": 5,
+      "asset_type": "embedded_image",
+      "storage_path": "extracted_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0005_image_001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "f91e565761ee317b026f94efd0baa8539dc1375dcaed938b0c7f8d8abdf5243e",
+      "width_px": 2385,
+      "height_px": 698
+    },
+    {
+      "asset_index": 7,
+      "page_number": 6,
+      "asset_type": "page",
+      "storage_path": "page_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0006.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "194b216bd2d2404fad7e8c55ae802e067d1aa6005786c9dc3f7b31f24ef72d0a",
+      "width_px": 1191,
+      "height_px": 1684
+    },
+    {
+      "asset_index": 8,
+      "page_number": 6,
+      "asset_type": "embedded_image",
+      "storage_path": "extracted_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0006_image_001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "042ee06eaaad735256883e625cccc7b37a2306a126644317c617c1f806da1283",
+      "width_px": 2085,
+      "height_px": 1223
+    },
+    {
+      "asset_index": 9,
+      "page_number": 7,
+      "asset_type": "page",
+      "storage_path": "page_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0007.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "0fa18dca918c1d4a075ea5410945a84f7a3bd1a9e6e15abb0a2f6d06b8e324f6",
+      "width_px": 1191,
+      "height_px": 1684
+    },
+    {
+      "asset_index": 10,
+      "page_number": 8,
+      "asset_type": "page",
+      "storage_path": "page_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0008.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "eab0836b7f43465ca66882752be14b78a31ed55a4ef1f1f65dbdd5138bd6030f",
+      "width_px": 1191,
+      "height_px": 1684
+    },
+    {
+      "asset_index": 11,
+      "page_number": 9,
+      "asset_type": "page",
+      "storage_path": "page_images/5de8bf50-7199-4f52-b942-e6b4172444e7/page_0009.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "57db50617ec31872d5ef6bd43477b6e96bec224160e9869ce00af24ea86e9642",
+      "width_px": 1191,
+      "height_px": 1684
+    }
+  ],
+  "page_count": 9
+}

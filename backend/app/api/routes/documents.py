@@ -57,6 +57,16 @@ from app.services.text_embeddings import (
     embed_document,
 )
 
+from app.schemas.visual_embedding import (
+    EmbedVisualAssetsRequest,
+    EmbedVisualAssetsResponse,
+)
+
+from app.services.visual_embeddings import (
+    VisualEmbeddingNotReadyError,
+    embed_visual_assets,
+)
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
@@ -268,6 +278,49 @@ def embed_document_chunks(
     "/knowledge-bases/{knowledge_base_id}/documents",
     response_model=list[DocumentRead],
 )
+
+@router.post(
+    "/documents/{document_id}/embed-visuals",
+    response_model=EmbedVisualAssetsResponse,
+)
+def embed_document_visuals(
+    document_id: uuid.UUID,
+    payload: EmbedVisualAssetsRequest,
+    db: DatabaseSession,
+):
+
+    try:
+
+        return embed_visual_assets(
+            db=db,
+            document_id=document_id,
+            force=payload.force,
+            include_page_images=(
+                payload.include_page_images
+            ),
+            include_embedded_images=(
+                payload.include_embedded_images
+            ),
+        )
+
+    except (
+        VisualEmbeddingNotReadyError
+    ) as exc:
+
+        raise HTTPException(
+            status_code=409,
+            detail=str(exc),
+        )
+
+    except Exception:
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Visual embedding failed."
+            ),
+        )
+
 def documents_for_knowledge_base(
     knowledge_base_id: uuid.UUID,
     db: DatabaseSession,

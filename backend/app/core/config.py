@@ -34,12 +34,23 @@ class Settings(BaseSettings):
 
     text_embedding_batch_size: int = 32
 
-    text_embedding_device: str = "cpu"
+    text_embedding_device: str = "cuda"
 
     text_query_instruction: str = (
         "Represent this sentence for "
         "searching relevant passages: "
     )
+    clip_model_name: str = "ViT-B-32"
+
+    clip_pretrained: str = "openai"
+
+    clip_embedding_dimension: int = 512
+
+    clip_batch_size: int = 32
+
+    clip_device: str = "auto"
+
+    clip_hnsw_ef_search: int = 100
 
     hnsw_ef_search: int = 100
 

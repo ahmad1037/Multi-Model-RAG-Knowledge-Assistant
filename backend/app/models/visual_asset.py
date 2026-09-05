@@ -127,7 +127,7 @@ class VisualAsset(
     )
 
     clip_embedding = mapped_column(
-        VECTOR(),
+        VECTOR(512),
         nullable=True,
     )
 
@@ -136,9 +136,20 @@ class VisualAsset(
         nullable=True,
     )
 
+    clip_pretrained: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
     clip_dimension: Mapped[int | None] = mapped_column(
         Integer,
         nullable=True,
+    )
+
+    clip_embedding_status: Mapped[str | None] = mapped_column(
+        String(50),
+        nullable=True,
+        index=True,
     )
 
     colpali_index_key: Mapped[str | None] = mapped_column(
