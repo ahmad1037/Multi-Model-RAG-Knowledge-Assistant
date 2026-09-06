@@ -67,6 +67,14 @@ from app.services.visual_embeddings import (
     embed_visual_assets,
 )
 
+from app.schemas.visual_analysis import (
+    AnalyzeVisualsRequest,
+)
+
+from app.services.visual_analysis import (
+    analyze_document_visuals,
+)
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
@@ -354,3 +362,24 @@ def document_details(
         )
 
     return document
+
+@router.post(
+    "/documents/{document_id}/analyze-visuals"
+)
+def analyze_visuals(
+    document_id: uuid.UUID,
+    payload: AnalyzeVisualsRequest,
+    db: DatabaseSession,
+):
+
+    return analyze_document_visuals(
+        db=db,
+
+        document_id=document_id,
+
+        force=payload.force,
+
+        asset_types=(
+            payload.asset_types
+        ),
+    )

@@ -66,7 +66,24 @@ def visual_candidate_for_reranking(
     db: Session,
     evidence: dict,
 ) -> str:
+    
 
+    visual_description = (
+        evidence.get(
+            "visual_description"
+        )
+    )
+
+
+    if visual_description:
+
+        parts.append(
+            "Visual interpretation:"
+        )
+
+        parts.append(
+            visual_description
+        )
     page = evidence.get(
         "page_start"
     )

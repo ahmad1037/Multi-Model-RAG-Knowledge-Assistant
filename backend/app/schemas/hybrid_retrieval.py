@@ -123,6 +123,8 @@ class HybridEvidence(
 
     storage_path: str | None = None
 
+    visual_description: str | None = None
+
     channels: list[str]
 
     channel_ranks: dict[str, int]

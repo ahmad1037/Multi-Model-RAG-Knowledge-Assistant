@@ -4,6 +4,7 @@ version = "0.1.0"
 decription = "Backend for the Full-Stack Multimodal RAG Knowledge Assistant"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "accelerate>=1.14.0",
     "alembic>=1.19.1",
     "fastapi[standard]>=0.141.1",
     "open-clip-torch>=3.3.0",
@@ -14,12 +15,14 @@ dependencies = [
     "pymupdf>=1.28.2",
     "python-docx>=1.2.0",
     "python-multipart>=0.0.32",
+    "qwen-vl-utils>=0.0.14",
     "sentence-transformers>=6.0.1",
     "sqlalchemy>=2.0.52",
     "tiktoken>=0.14.0",
     "torch==2.6.0",
     "torchaudio==2.6.0",
     "torchvision==0.21.0",
+    "transformers>=5.16.1",
     "uvicorn[standard]>=0.52.4",
 ]
 

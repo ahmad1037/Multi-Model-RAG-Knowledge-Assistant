@@ -117,6 +117,11 @@ def initial_evidence(
         "storage_path":
             result["storage_path"],
 
+        "visual_description":
+            result.get(
+                "visual_description"
+            ),
+
         "channels":
             [],
 

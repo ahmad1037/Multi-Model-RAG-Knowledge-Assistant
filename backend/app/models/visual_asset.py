@@ -172,3 +172,26 @@ class VisualAsset(
         "KnowledgeBase",
         back_populates="visual_assets",
     )
+    vlm_model: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+
+    vlm_prompt_version: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
+
+    vlm_status: Mapped[str | None] = mapped_column(
+        String(50),
+        nullable=True,
+        index=True,
+    )
+
+
+    vlm_error_message: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
+    )

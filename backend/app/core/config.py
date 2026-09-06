@@ -6,7 +6,6 @@ from pydantic_settings import (
     SettingsConfigDict,
 )
 
-
 class Settings(BaseSettings):
 
     app_env: str = "development"
@@ -86,6 +85,22 @@ class Settings(BaseSettings):
     context_max_items_per_page: int = 2
 
     visual_context_max_chars: int = 2500
+
+    vlm_model: str = (
+        "Qwen/Qwen2.5-VL-3B-Instruct"
+    )
+
+    vlm_max_new_tokens: int = 700
+
+    vlm_min_pixels: int = 200704
+
+    vlm_max_pixels: int = 802816
+
+    vlm_prompt_version: str = (
+        "visual-analysis-v1"
+    )
+
+    vlm_max_assets_per_request: int = 20
 
 @lru_cache
 def get_settings() -> Settings:

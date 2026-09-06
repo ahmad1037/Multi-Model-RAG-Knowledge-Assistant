@@ -216,6 +216,9 @@ def text_to_image_search(
                 "storage_path":
                     asset.storage_path,
 
+                "visual_description":
+                    asset.visual_description,
+
                 "width_px":
                     asset.width_px,
 
@@ -346,6 +349,9 @@ def image_vector_search(
 
                 "storage_path":
                     asset.storage_path,
+
+                "visual_description":
+                    asset.visual_description,
 
                 "width_px":
                     asset.width_px,
