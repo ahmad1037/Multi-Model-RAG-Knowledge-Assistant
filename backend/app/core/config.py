@@ -125,6 +125,21 @@ class Settings(BaseSettings):
     )
 
     max_grounding_retries: int = 1
+    conversation_recent_messages: int = 8
+
+    conversation_summary_trigger: int = 12
+
+    conversation_summary_refresh_every: int = 8
+
+    conversation_summary_max_chars: int = 5000
+
+    conversation_rewrite_model: str = (
+        "qwen3:8b"
+    )
+
+    conversation_summary_model: str = (
+        "qwen3:8b"
+    )
 
 @lru_cache
 def get_settings() -> Settings:

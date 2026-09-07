@@ -171,6 +171,7 @@ def generate_once(
     question: str,
     context_items: list[dict],
     corrective_instruction: str = "",
+    conversation_context: str | None = None,
 ) -> GroundedModelOutput:
 
     provider = (
@@ -182,6 +183,17 @@ def generate_once(
     )
 
     user_prompt = f"""
+CONVERSATION CONTEXT
+
+{conversation_context or "(none)"}
+
+IMPORTANT:
+Conversation context is provided only for
+continuity and reference resolution.
+
+It is NOT evidence and must never be cited.
+
+
 USER QUESTION
 
 {question}
@@ -194,15 +206,6 @@ RETRIEVED EVIDENCE
 {evidence}
 
 </evidence>
-
-
-CORRECTION
-
-{corrective_instruction}
-
-
-Return the answer using the required
-structured JSON format.
 """
 
     return provider.generate(
@@ -227,17 +230,22 @@ def answer_question(
     knowledge_base_id: uuid.UUID,
     question: str,
     verify_grounding: bool = True,
+    retrieval_query: str | None = None,
+    conversation_context: str | None = None,
 ) -> dict:
 
     retrieval = (
         retrieve_rerank_and_select(
-            db=db,
+        db=db,
 
-            knowledge_base_id=(
-                knowledge_base_id
-            ),
+        knowledge_base_id=(
+            knowledge_base_id
+        ),
 
-            query=question,
+        query=(
+            retrieval_query
+            or question
+        ),
         )
     )
 

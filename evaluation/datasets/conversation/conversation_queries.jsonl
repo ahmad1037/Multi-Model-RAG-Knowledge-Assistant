@@ -1,0 +1,23 @@
+{
+  "id": "conv-001",
+
+  "turns": [
+    {
+      "user":
+        "Why was Gradient Boosting selected?"
+    },
+
+    {
+      "user":
+        "How much better was it?",
+
+      "expected_standalone":
+        "How much better did Gradient Boosting perform than tuned XGBoost on the held-out final test metrics?"
+    }
+  ],
+
+  "expected_document":
+    "retail_sales_forecasting_analysis(1).pdf",
+
+  "expected_pages": [5]
+}
