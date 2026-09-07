@@ -58,7 +58,7 @@ class TextEmbedder:
 
         actual_dimension = (
             self.model
-            .get_sentence_embedding_dimension()
+            .get_embedding_dimension()
         )
 
         if (

@@ -1,0 +1,19 @@
+{
+  "id": "gen-001",
+  "knowledge_base_slug":
+    "retail-sales-forecasting",
+  "question":
+    "Why was Gradient Boosting selected?",
+  "expected_answerable": true,
+  "expected_document":
+    "retail_sales_forecasting_analysis(1).pdf",
+  "expected_pages": [5]
+}
+{
+  "id": "gen-002",
+  "knowledge_base_slug":
+    "retail-sales-forecasting",
+  "question":
+    "What was the monthly AWS hosting cost?",
+  "expected_answerable": false
+}

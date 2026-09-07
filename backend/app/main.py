@@ -18,6 +18,9 @@ from app.api.routes.visual_retrieval import (
 from app.api.routes.visual_assets import (
     router as visual_assets_router,
 )
+from app.api.routes.generation import (
+    router as generation_router,
+)
 
 app = FastAPI(
     title="Multimodal RAG Knowledge Assistant API",
@@ -49,6 +52,11 @@ app.include_router(
 )
 app.include_router(
     visual_assets_router,
+    prefix="/api/v1",
+)
+
+app.include_router(
+    generation_router,
     prefix="/api/v1",
 )
 

@@ -67,7 +67,7 @@ def visual_candidate_for_reranking(
     evidence: dict,
 ) -> str:
     
-
+    parts: list[str] = []
     visual_description = (
         evidence.get(
             "visual_description"

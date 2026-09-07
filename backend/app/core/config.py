@@ -6,6 +6,8 @@ from pydantic_settings import (
     SettingsConfigDict,
 )
 
+from pydantic import SecretStr
+
 class Settings(BaseSettings):
 
     app_env: str = "development"
@@ -101,6 +103,28 @@ class Settings(BaseSettings):
     )
 
     vlm_max_assets_per_request: int = 20
+
+    ollama_base_url: str = (
+        "http://localhost:11434"
+    )
+
+    llm_provider: str = "ollama"
+
+    generation_model: str = (
+        "qwen3:8b"
+    )
+
+    verification_model: str = (
+        "qwen3:8b"
+    )
+
+    generation_temperature: float = 0.0
+
+    generation_prompt_version: str = (
+        "grounded-answer-v2-ollama"
+    )
+
+    max_grounding_retries: int = 1
 
 @lru_cache
 def get_settings() -> Settings:

@@ -37,7 +37,8 @@ services:
       uv run uvicorn app.main:app
       --host 0.0.0.0
       --port 8000
-
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       APP_ENV: ${APP_ENV}
       TEXT_EMBEDDING_MODEL: ${TEXT_EMBEDDING_MODEL}
@@ -55,6 +56,13 @@ services:
       STORAGE_ROOT: /storage
 
       MAX_UPLOAD_SIZE_MB: ${MAX_UPLOAD_SIZE_MB:-25}
+      LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      GENERATION_MODEL: ${GENERATION_MODEL:-qwen3:8b}
+      VERIFICATION_MODEL: ${VERIFICATION_MODEL:-qwen3:8b}
+      GENERATION_PROMPT_VERSION: ${GENERATION_PROMPT_VERSION:-grounded-answer-v1}
+      GENERATION_TEMPERATURE: ${GENERATION_TEMPERATURE:-0}
+      MAX_GROUNDING_RETRIES: ${MAX_GROUNDING_RETRIES:-1}
     deploy:
       resources:
         reservations:
