@@ -5,11 +5,6 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 
 from app.rag.generation.citations import (
-    build_source_records,
-    validate_citations,
-)
-
-from app.rag.generation.citations import (
     CitationValidationError,
     build_source_records,
     validate_citations,
@@ -41,6 +36,11 @@ from app.schemas.generation import (
 
 from app.services.context_pipeline import (
     retrieve_rerank_and_select,
+)
+
+from app.observability.metrics import (
+    ANSWER_OUTCOMES,
+    GROUNDING_RESULTS,
 )
 
 def generate_with_valid_citations(
@@ -131,6 +131,10 @@ def safe_refusal(
     question: str,
 ) -> dict:
 
+    ANSWER_OUTCOMES.labels(
+        outcome="refused"
+    ).inc()
+
     return {
         "answerable":
             False,
@@ -206,9 +210,14 @@ RETRIEVED EVIDENCE
 {evidence}
 
 </evidence>
-"""
 
+ADDITIONAL CORRECTION
+
+{corrective_instruction or "(none)"}
+"""
+    
     return provider.generate(
+        operation="answer_generation",
         model=(
             settings
             .generation_model
@@ -281,6 +290,10 @@ def answer_question(
 
     except CitationValidationError:
 
+        ANSWER_OUTCOMES.labels(
+            outcome="refused"
+        ).inc()
+
         return {
             "answerable":
                 False,
@@ -316,6 +329,10 @@ def answer_question(
         }
 
     if not generated.answerable:
+
+        ANSWER_OUTCOMES.labels(
+            outcome="refused"
+        ).inc()
 
         return {
             "answerable":
@@ -354,6 +371,9 @@ def answer_question(
                 citations,
             )
         )
+        ANSWER_OUTCOMES.labels(
+            outcome="answerable"
+        ).inc()
 
         return {
             "answerable":
@@ -405,6 +425,9 @@ def answer_question(
         .max_grounding_retries
     ):
 
+        GROUNDING_RESULTS.labels(
+            result="retry"
+        ).inc()
         attempts += 1
 
         unsupported = "\n".join(
@@ -484,6 +507,14 @@ directly supported by the evidence.
         .all_claims_supported
     ):
 
+        GROUNDING_RESULTS.labels(
+            result="failed"
+        ).inc()
+
+        ANSWER_OUTCOMES.labels(
+            outcome="refused"
+        ).inc()
+
         return {
             "answerable":
                 False,
@@ -525,7 +556,14 @@ directly supported by the evidence.
         context_items,
         citations,
     )
+    ANSWER_OUTCOMES.labels(
+        outcome="answerable"
+    ).inc()
 
+
+    GROUNDING_RESULTS.labels(
+        result="passed"
+    ).inc()
     return {
         "answerable":
             True,

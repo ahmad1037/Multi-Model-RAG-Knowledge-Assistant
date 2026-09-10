@@ -140,6 +140,15 @@ class Settings(BaseSettings):
     conversation_summary_model: str = (
         "qwen3:8b"
     )
+    service_name: str = (
+        "multimodal-rag-backend"
+    )
+
+    service_version: str = "0.12.0"
+
+    log_level: str = "INFO"
+
+    prometheus_enabled: bool = True
 
 @lru_cache
 def get_settings() -> Settings:

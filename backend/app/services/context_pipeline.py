@@ -1,5 +1,9 @@
 import uuid
 
+from app.observability.logging import (
+    get_logger,
+)
+
 from sqlalchemy.orm import Session
 
 from app.rag.context.selector import (
@@ -13,7 +17,9 @@ from app.schemas.reranking import (
 from app.services.rerank_search import (
     retrieve_and_rerank,
 )
-
+from app.observability.timing import (
+    observe_stage,
+)
 
 def retrieve_rerank_and_select(
     db: Session,
@@ -53,12 +59,17 @@ def retrieve_rerank_and_select(
         )
     )
 
-    context = select_context(
-        query=query,
-        reranked=(
-            reranked["results"]
-        ),
-    )
+    with observe_stage(
+        "context_selection"
+    ):
+
+        context = select_context(
+            query=query,
+
+            reranked=(
+                reranked["results"]
+            ),
+        )
 
     return {
         "query":

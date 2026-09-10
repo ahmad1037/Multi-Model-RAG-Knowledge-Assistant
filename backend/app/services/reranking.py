@@ -7,7 +7,9 @@ from app.rag.reranking.bge_reranker import (
 from app.rag.reranking.evidence import (
     evidence_to_rerank_text,
 )
-
+from app.observability.timing import (
+    observe_stage,
+)
 
 def rerank_evidence(
     db: Session,
@@ -30,13 +32,17 @@ def rerank_evidence(
     reranker = (
         get_reranker()
     )
+    with observe_stage(
+        "reranking",
+        candidate_count=len(evidence),
+    ):
 
-    scores = (
-        reranker.score_pairs(
-            query=query,
-            passages=passages,
+        scores = (
+            reranker.score_pairs(
+                query=query,
+                passages=passages,
+            )
         )
-    )
 
     reranked = []
 

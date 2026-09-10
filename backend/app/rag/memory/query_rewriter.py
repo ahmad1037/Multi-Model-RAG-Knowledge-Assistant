@@ -45,6 +45,7 @@ standalone retrieval query.
 """
 
     return provider.generate(
+        operation="query_rewrite",
         model=(
             settings
             .conversation_rewrite_model

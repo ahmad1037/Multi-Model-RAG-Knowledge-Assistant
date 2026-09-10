@@ -146,10 +146,14 @@ class VisualAsset(
         nullable=True,
     )
 
-    clip_embedding_status: Mapped[str | None] = mapped_column(
-        String(50),
-        nullable=True,
-        index=True,
+    clip_embedding_status: Mapped[str] = (
+        mapped_column(
+            String(50),
+            nullable=False,
+            default="pending",
+            server_default="pending",
+            index=True,
+        )
     )
 
     colpali_index_key: Mapped[str | None] = mapped_column(

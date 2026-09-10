@@ -24,7 +24,17 @@ from app.api.routes.generation import (
 from app.api.routes import (
     conversations,
 )
+from prometheus_client import (
+    make_asgi_app,
+)
+from app.middleware.observability import (
+    observability_middleware,
+)
+from app.observability.logging import (
+    configure_logging,
+)
 
+configure_logging()
 app = FastAPI(
     title="Multimodal RAG Knowledge Assistant API",
     description=(
@@ -32,6 +42,17 @@ app = FastAPI(
         "RAG generation, conversations, and evaluation."
     ),
     version="0.1.0",
+)
+
+app.middleware("http")(
+    observability_middleware
+)
+
+metrics_app = make_asgi_app()
+
+app.mount(
+    "/metrics",
+    metrics_app,
 )
 
 app.include_router(
@@ -74,8 +95,21 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=[
+        "X-Request-ID",
+    ],
 )
 
+app.middleware("http")(
+    observability_middleware
+)
+
+metrics_app = make_asgi_app()
+
+app.mount(
+    "/metrics",
+    metrics_app,
+)
 
 app.include_router(
     health_router,

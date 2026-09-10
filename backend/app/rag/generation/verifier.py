@@ -78,6 +78,7 @@ required structured JSON format.
 """
 
     return provider.generate(
+        operation="grounding_verification",
         model=(
             settings
             .verification_model

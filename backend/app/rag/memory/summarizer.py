@@ -84,6 +84,7 @@ def maybe_update_summary(
     )
 
     result = provider.generate(
+        operation="conversation_summary",
         model=(
             settings
             .conversation_summary_model
