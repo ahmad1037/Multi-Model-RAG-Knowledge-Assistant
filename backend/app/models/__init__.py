@@ -5,6 +5,7 @@ from app.models.knowledge_base import KnowledgeBase
 from app.models.message import Message
 from app.models.visual_asset import VisualAsset
 from app.models.chunking_run import ChunkingRun
+from app.models.processing_job import ProcessingJob
 
 __all__ = [
     "KnowledgeBase",
@@ -14,4 +15,5 @@ __all__ = [
     "Conversation",
     "Message",
     "ChunkingRun",
+    "ProcessingJob",
 ]

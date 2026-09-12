@@ -18,8 +18,10 @@ from app.db.session import get_db
 
 from app.schemas.document import (
     DocumentRead,
-    DocumentUploadResponse,
+    AsyncDocumentUploadResponse,
 )
+
+from app.services.background_jobs import enqueue_document_processing
 
 from app.services.document_ingestion import (
     DuplicateDocumentError,
@@ -27,7 +29,7 @@ from app.services.document_ingestion import (
     KnowledgeBaseNotFoundError,
     UnsupportedFileTypeError,
     get_document,
-    ingest_document,
+    prepare_document_upload,
     list_documents,
 )
 
@@ -90,31 +92,46 @@ DatabaseSession = Annotated[
 
 @router.post(
     "/knowledge-bases/{knowledge_base_id}/documents",
-    response_model=DocumentUploadResponse,
-    status_code=status.HTTP_201_CREATED,
+    response_model=AsyncDocumentUploadResponse,
+    status_code=status.HTTP_202_ACCEPTED,
 )
 async def upload_document(
     knowledge_base_id: uuid.UUID,
-    file: Annotated[
-        UploadFile,
-        File(
-            description=(
-                "PDF, DOCX, TXT, or Markdown document"
-            )
-        ),
-    ],
+    file: UploadFile,
     db: DatabaseSession,
 ):
 
     try:
 
-        return await ingest_document(
-            db=db,
-            knowledge_base_id=(
-                knowledge_base_id
-            ),
-            upload=file,
+        document = await (
+            prepare_document_upload(
+                db=db,
+
+                knowledge_base_id=(
+                    knowledge_base_id
+                ),
+
+                upload=file,
+            )
         )
+
+
+        job = (
+            enqueue_document_processing(
+                db=db,
+
+                document_id=document.id,
+            )
+        )
+        return {
+            "document":
+                document,
+
+            "processing_job":
+                job,
+        }
+
+     
 
     except KnowledgeBaseNotFoundError:
 
@@ -161,7 +178,7 @@ async def upload_document(
                 "Document ingestion failed."
             ),
         )
-
+    
 
 @router.post(
     "/documents/{document_id}/chunk",

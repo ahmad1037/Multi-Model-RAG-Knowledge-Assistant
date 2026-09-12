@@ -141,3 +141,11 @@ class Document(
         back_populates="document",
         cascade="all, delete-orphan",
     )
+
+    processing_jobs = relationship(
+        "ProcessingJob",
+
+        back_populates="document",
+
+        cascade="all, delete-orphan",
+    )

@@ -7,8 +7,14 @@ from pydantic import (
     ConfigDict,
 )
 
+from app.schemas.processing_job import ProcessingJobRead
+from pydantic import BaseModel, ConfigDict
+
 
 class DocumentRead(BaseModel):
+    model_config = ConfigDict(
+        from_attributes=True,
+    )
 
     id: uuid.UUID
 
@@ -35,14 +41,7 @@ class DocumentRead(BaseModel):
     )
 
 
-class DocumentUploadResponse(BaseModel):
 
+class AsyncDocumentUploadResponse(BaseModel):
     document: DocumentRead
-
-    text_characters: int
-
-    page_count: int | None
-
-    visual_assets: int
-
-    extraction_path: str
+    processing_job: ProcessingJobRead

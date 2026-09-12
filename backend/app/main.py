@@ -33,7 +33,9 @@ from app.middleware.observability import (
 from app.observability.logging import (
     configure_logging,
 )
-
+from app.api.routes.processing_jobs import (
+    router as processing_jobs_router,
+)
 configure_logging()
 app = FastAPI(
     title="Multimodal RAG Knowledge Assistant API",
@@ -81,6 +83,12 @@ app.include_router(
 
 app.include_router(
     generation_router,
+    prefix="/api/v1",
+)
+
+app.include_router(
+    processing_jobs_router,
+
     prefix="/api/v1",
 )
 

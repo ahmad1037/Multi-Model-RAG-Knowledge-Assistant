@@ -102,3 +102,25 @@ export interface ConversationTurnResponse {
 
   clarification_question: string;
 }
+
+
+export interface ProcessingJob {
+  id: string;
+
+  document_id: string;
+
+  status: string;
+
+  current_stage: string;
+
+  progress_percent: number;
+
+  error_message: string | null;
+}
+
+
+export interface DocumentUploadResponse {
+  document: DocumentItem;
+
+  processing_job: ProcessingJob;
+}

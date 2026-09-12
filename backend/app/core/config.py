@@ -150,6 +150,26 @@ class Settings(BaseSettings):
 
     prometheus_enabled: bool = True
 
+        # -------------------------
+    # Background Processing
+    # -------------------------
+
+    redis_url: str = (
+        "redis://redis:6379/0"
+    )
+
+    celery_broker_url: str = (
+        "redis://redis:6379/0"
+    )
+
+    celery_result_backend: str = (
+        "redis://redis:6379/1"
+    )
+
+    processing_max_retries: int = 2
+
+    processing_retry_delay_seconds: int = 30
+
 @lru_cache
 def get_settings() -> Settings:
     return Settings()

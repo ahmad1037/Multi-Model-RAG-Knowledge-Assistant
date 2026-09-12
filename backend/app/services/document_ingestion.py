@@ -26,6 +26,7 @@ from app.services.file_storage import (
     UnsupportedFileTypeError,
 )
 
+from sqlalchemy import delete, select
 
 logger = logging.getLogger(
     __name__
@@ -91,12 +92,11 @@ class DuplicateDocumentError(
         )
 
 
-async def ingest_document(
+async def prepare_document_upload(
     db: Session,
     knowledge_base_id: uuid.UUID,
     upload: UploadFile,
-):
-
+) -> Document:
     knowledge_base = db.get(
         KnowledgeBase,
         knowledge_base_id,
@@ -108,11 +108,8 @@ async def ingest_document(
     staged: StagedUpload | None = None
 
     try:
-
-        staged = (
-            await storage.stage_upload(
-                upload
-            )
+        staged = await storage.stage_upload(
+            upload
         )
 
         duplicate_statement = (
@@ -120,7 +117,6 @@ async def ingest_document(
             .where(
                 Document.knowledge_base_id
                 == knowledge_base_id,
-
                 Document.checksum_sha256
                 == staged.checksum_sha256,
             )
@@ -130,11 +126,11 @@ async def ingest_document(
             duplicate_statement
         )
 
-        if duplicate:
-
+        if duplicate is not None:
             storage.remove_staged(
                 staged
             )
+            staged = None
 
             raise DuplicateDocumentError(
                 duplicate.id
@@ -161,9 +157,7 @@ async def ingest_document(
             stored_filename=(
                 stored_filename
             ),
-            storage_path=(
-                relative_path
-            ),
+            storage_path=relative_path,
             media_type=(
                 staged.media_type
             ),
@@ -173,143 +167,146 @@ async def ingest_document(
             checksum_sha256=(
                 staged.checksum_sha256
             ),
-            status="extracting",
+            status="uploaded",
             document_metadata={},
         )
 
+        staged = None
+
         db.add(document)
-
         db.commit()
-
         db.refresh(document)
 
-        try:
+        return document
 
-            absolute_path = (
-                storage.resolve(
-                    document.storage_path
+    except Exception:
+        if staged is not None:
+            storage.remove_staged(
+                staged
+            )
+
+        raise
+
+def extract_stored_document(
+    db: Session,
+    document_id: uuid.UUID,
+) -> Document:
+    document = db.get(
+        Document,
+        document_id,
+    )
+
+    if document is None:
+        raise ValueError(
+            "Document not found."
+        )
+
+    document.status = "extracting"
+    document.error_message = None
+
+    db.commit()
+    db.refresh(document)
+
+    try:
+        absolute_path = storage.resolve(
+            document.storage_path
+        )
+
+        result = parse_document(
+            file_path=absolute_path,
+            document_id=document.id,
+            storage_root=storage.root,
+        )
+
+        db.execute(
+            delete(VisualAsset).where(
+                VisualAsset.document_id
+                == document.id
+            )
+        )
+
+        db.flush()
+
+        for visual in result.visuals:
+            db.add(
+                VisualAsset(
+                    document_id=document.id,
+                    knowledge_base_id=(
+                        document.knowledge_base_id
+                    ),
+                    page_number=visual.page_number,
+                    asset_index=visual.asset_index,
+                    asset_type=visual.asset_type,
+                    storage_path=visual.storage_path,
+                    mime_type=visual.mime_type,
+                    checksum_sha256=(
+                        visual.checksum_sha256
+                    ),
+                    width_px=visual.width_px,
+                    height_px=visual.height_px,
+                    clip_embedding_status="pending",
+                    visual_metadata={},
                 )
             )
 
-            result = parse_document(
-                file_path=absolute_path,
-                document_id=document.id,
-                storage_root=storage.root,
+        extraction_path = (
+            storage.save_extraction(
+                document.id,
+                result,
             )
+        )
 
-            for visual in result.visuals:
+        text_characters = sum(
+            len(page.text)
+            for page in result.pages
+        )
 
-                db.add(
-                    VisualAsset(
-                        document_id=document.id,
-                        knowledge_base_id=(
-                            knowledge_base_id
-                        ),
-                        page_number=(
-                            visual.page_number
-                        ),
-                        asset_index=(
-                            visual.asset_index
-                        ),
-                        asset_type=(
-                            visual.asset_type
-                        ),
-                        storage_path=(
-                            visual.storage_path
-                        ),
-                        mime_type=(
-                            visual.mime_type
-                        ),
-                        checksum_sha256=(
-                            visual.checksum_sha256
-                        ),
-                        width_px=(
-                            visual.width_px
-                        ),
-                        height_px=(
-                            visual.height_px
-                        ),
-                        visual_metadata={},
-                    )
-                )
+        document.page_count = (
+            result.page_count
+        )
 
-            extraction_path = (
-                storage.save_extraction(
-                    document.id,
-                    result,
-                )
-            )
+        document.document_metadata = {
+            "extraction_path":
+                extraction_path,
+            "text_characters":
+                text_characters,
+            "visual_assets_count":
+                len(result.visuals),
+        }
 
-            text_characters = sum(
-                len(page.text)
-                for page in result.pages
-            )
+        document.status = (
+            "ready_for_chunking"
+        )
 
-            document.page_count = (
-                result.page_count
-            )
+        document.error_message = None
 
-            document.status = (
-                "ready_for_chunking"
-            )
+        db.commit()
+        db.refresh(document)
 
-            document.error_message = None
+        return document
 
-            document.document_metadata = {
-                "extraction_path":
-                    extraction_path,
+    except Exception as exc:
+        logger.exception(
+            "Document extraction failed",
+            extra={
+                "document_id":
+                    str(document_id),
+            },
+        )
 
-                "text_characters":
-                    text_characters,
+        # Required if a database operation caused
+        # the exception and invalidated the session.
 
-                "visual_assets_count":
-                    len(result.visuals),
-            }
+        db.rollback()
 
-            db.commit()
+        document = db.get(
+            Document,
+            document_id,
+        )
 
-            db.refresh(document)
-
-            return {
-                "document": document,
-
-                "text_characters":
-                    text_characters,
-
-                "page_count":
-                    result.page_count,
-
-                "visual_assets":
-                    len(result.visuals),
-
-                "extraction_path":
-                    extraction_path,
-            }
-
-        except Exception as exc:
-
-            logger.exception(
-                "Document parsing failed",
-                extra={
-                    "document_id":
-                        str(document.id),
-                },
-            )
-
+        if document is not None:
             document.status = "failed"
-
-            document.error_message = (
-                str(exc)[:2000]
-            )
-
+            document.error_message = str(exc)[:2000]
             db.commit()
 
-            raise
-
-    except (
-        UnsupportedFileTypeError,
-        FileTooLargeError,
-        DuplicateDocumentError,
-        KnowledgeBaseNotFoundError,
-    ):
         raise

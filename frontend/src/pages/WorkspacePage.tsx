@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useRef,
   useState,
 } from "react";
 
@@ -21,7 +22,13 @@ import {
   SourcePanel,
 } from "../components/SourcePanel";
 
+import {
+  DocumentPanel,
+} from "../components/DocumentPanel";
+
 export function WorkspacePage() {
+
+  const initialized = useRef(false);
 
   const [
     knowledgeBases,
@@ -53,25 +60,57 @@ export function WorkspacePage() {
   >(
     null,
   );
+
+  const [
+    isCreatingConversation,
+    setIsCreatingConversation,
+  ] = useState(false);
+
+  const [error, setError] =
+    useState<string | null>(null);
+
     useEffect(() => {
+
+    if (initialized.current) {
+      return;
+    }
+
+    initialized.current = true;
 
     async function load() {
 
-      const response =
-        await getKnowledgeBases();
+      try {
+        const response =
+          await getKnowledgeBases();
 
-      setKnowledgeBases(
-        response.data,
-      );
+        setKnowledgeBases(response.data);
 
+        const firstKnowledgeBase =
+          response.data[0];
 
-      if (
-        response.data.length > 0
-      ) {
+        if (firstKnowledgeBase) {
+          setKnowledgeBaseId(
+            firstKnowledgeBase.id,
+          );
+          setIsCreatingConversation(true);
 
-        setKnowledgeBaseId(
-          response.data[0].id,
+          const conversation =
+            await createConversation(
+              firstKnowledgeBase.id,
+            );
+
+          setConversationId(
+            conversation.data.id,
+          );
+        }
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Could not initialize the workspace.",
         );
+      } finally {
+        setIsCreatingConversation(false);
       }
     }
 
@@ -79,6 +118,39 @@ export function WorkspacePage() {
     load();
 
   }, []);
+
+    async function selectKnowledgeBase(
+    nextKnowledgeBaseId: string,
+  ) {
+    setKnowledgeBaseId(nextKnowledgeBaseId);
+    setConversationId(null);
+    setSelectedSource(null);
+    setError(null);
+
+    if (!nextKnowledgeBaseId) {
+      return;
+    }
+
+    setIsCreatingConversation(true);
+
+    try {
+      const response =
+        await createConversation(
+          nextKnowledgeBaseId,
+        );
+
+      setConversationId(response.data.id);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Conversation creation failed.",
+      );
+    } finally {
+      setIsCreatingConversation(false);
+    }
+  }
+
     async function newConversation() {
 
     if (!knowledgeBaseId) {
@@ -86,46 +158,54 @@ export function WorkspacePage() {
     }
 
 
-    const response =
-      await createConversation(
-        knowledgeBaseId,
+    setIsCreatingConversation(true);
+    setError(null);
+
+    try {
+      const response =
+        await createConversation(
+          knowledgeBaseId,
+        );
+
+      setConversationId(response.data.id);
+      setSelectedSource(null);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Conversation creation failed.",
       );
-
-
-    setConversationId(
-      response.data.id,
-    );
-
-
-    setSelectedSource(
-      null,
-    );
+    } finally {
+      setIsCreatingConversation(false);
+    }
   }
     return (
     <div className="workspace">
 
       <aside className="sidebar">
 
-        <h1>
-          Multimodal RAG
-        </h1>
+        <div className="brand-mark">MR</div>
+
+        <div className="brand-copy">
+          <h1>Multimodal RAG</h1>
+          <p>Knowledge workspace</p>
+        </div>
+
+        <label htmlFor="knowledge-base">
+          Knowledge base
+        </label>
 
 
         <select
+          id="knowledge-base"
           value={
             knowledgeBaseId ?? ""
           }
 
           onChange={(event) => {
-
-            setKnowledgeBaseId(
+            void selectKnowledgeBase(
               event.target.value,
             );
-
-            setConversationId(
-              null,
-            );
-
           }}
         >
 
@@ -153,14 +233,27 @@ export function WorkspacePage() {
 
           disabled={
             !knowledgeBaseId
+            || isCreatingConversation
           }
         >
 
-          + New conversation
+          {isCreatingConversation
+            ? "Starting..."
+            : "+ New conversation"}
 
         </button>
 
+        <DocumentPanel
+          knowledgeBaseId={knowledgeBaseId}
+        />
+
       </aside>
+
+      {error && (
+        <div className="workspace-error" role="alert">
+          {error}
+        </div>
+      )}
 
 
       <ChatPanel

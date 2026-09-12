@@ -2,8 +2,10 @@ import type {
   Conversation,
   ConversationTurnResponse,
   DocumentItem,
+  DocumentUploadResponse,
   KnowledgeBase,
   Message,
+  ProcessingJob,
 } from "./types";
 
 const API_BASE_URL = (
@@ -133,11 +135,19 @@ export async function uploadDocument(
     file,
   );
 
-  return apiRequest<DocumentItem>(
+  return apiRequest<DocumentUploadResponse>(
     `/knowledge-bases/${knowledgeBaseId}/documents`,
     {
       method: "POST",
       body: formData,
     },
+  );
+}
+
+export async function getProcessingJob(
+  jobId: string,
+) {
+  return apiRequest<ProcessingJob>(
+    `/processing-jobs/${jobId}`,
   );
 }

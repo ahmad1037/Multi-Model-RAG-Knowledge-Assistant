@@ -23,6 +23,8 @@ interface ChatMessage {
   sources?: SourceCitation[];
 }
 
+const EMPTY_MESSAGES: ChatMessage[] = [];
+
 interface Props {
   conversationId: string | null;
   initialMessages?: ChatMessage[];
@@ -33,7 +35,7 @@ interface Props {
 
 export function ChatPanel({
   conversationId,
-  initialMessages = [],
+  initialMessages = EMPTY_MESSAGES,
   onSourceClick,
 }: Props) {
   const [
