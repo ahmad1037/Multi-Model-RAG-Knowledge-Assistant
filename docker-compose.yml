@@ -63,6 +63,9 @@ services:
       GENERATION_PROMPT_VERSION: ${GENERATION_PROMPT_VERSION:-grounded-answer-v1}
       GENERATION_TEMPERATURE: ${GENERATION_TEMPERATURE:-0}
       MAX_GROUNDING_RETRIES: ${MAX_GROUNDING_RETRIES:-1}
+      HF_TOKEN: ${HF_TOKEN}
+      HF_HOME: /cache/huggingface
+      HF_HUB_DOWNLOAD_TIMEOUT: "400"
     deploy:
       resources:
         reservations:
@@ -75,6 +78,7 @@ services:
     volumes:
     - ./storage:/storage
     - huggingface_cache:/root/.cache/huggingface
+
 
     ports:
       - "8000:8000"

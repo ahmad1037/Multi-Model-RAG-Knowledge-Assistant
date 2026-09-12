@@ -1,0 +1,87 @@
+{
+  "name": "Retail Sales Forecasting",
+  "slug": "retail-sales-forecasting",
+  "description": "Documentation and artifacts for the retail forecasting project."
+}
+
+{
+  "name": "Multimodal RAG Demo",
+  "slug": "multimodal-rag-demo",
+  "description": "Documents for testing multimodal ingestion."
+}
+
+ 
+
+Knowledge base
+
+{
+  "strategy": "structure_recursive_v1",
+  "chunk_size_tokens": 450,
+  "chunk_overlap_tokens": 80,
+  "tokenizer_name": "cl100k_base"
+}
+
+{
+  "strategy": "page_v1",
+  "chunk_size_tokens": 450,
+  "chunk_overlap_tokens": 80,
+  "tokenizer_name": "cl100k_base"
+}
+
+{
+  "strategy": "structure_recursive_v1",
+  "chunk_size_tokens": 700,
+  "chunk_overlap_tokens": 100,
+  "tokenizer_name": "cl100k_base"
+}
+
+{
+  "strategy": "structure_recursive_v1",
+  "chunk_size_tokens": 350,
+  "chunk_overlap_tokens": 60,
+  "tokenizer_name": "cl100k_base"
+}
+
+Chunk
+
+{
+  "query": "Why was Gradient Boosting selected?",
+  "top_k": 5,
+  "mode": "exact"
+}
+
+{
+  "query": "Why was Gradient Boosting selected?",
+  "top_k": 10,
+  "mode": "hnsw"
+}
+
+Search
+
+{
+  "query": "Why was Gradient Boosting selected as the final model?",
+  "top_k": 5,
+  "candidate_k": 20,
+  "rrf_k": 60,
+  "include_semantic": true,
+  "include_lexical": true,
+  "include_visual": false,
+  "semantic_mode": "exact",
+  "visual_mode": "exact",
+  "visual_asset_type": "all"
+}
+
+{
+  "query": "Find evidence comparing Gradient Boosting with XGBoost",
+  "top_k": 10,
+  "candidate_k": 20,
+  "rrf_k": 60,
+  "include_semantic": true,
+  "include_lexical": true,
+  "include_visual": true,
+  "semantic_mode": "hnsw",
+  "visual_mode": "hnsw",
+  "visual_asset_type": "page"
+}
+
+Hybrid Search
