@@ -5,6 +5,7 @@ from app.rag.context.selector import (
 
 def test_context_selector_respects_limit(
     monkeypatch,
+    deterministic_tokenizer,
 ):
 
     items = []

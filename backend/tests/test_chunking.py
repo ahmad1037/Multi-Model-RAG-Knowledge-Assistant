@@ -6,7 +6,7 @@ from app.rag.chunking.types import (
 )
 
 
-def test_structure_chunking():
+def test_structure_chunking(deterministic_tokenizer):
 
     pages = [
         {

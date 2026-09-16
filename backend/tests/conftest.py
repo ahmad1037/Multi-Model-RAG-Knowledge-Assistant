@@ -52,3 +52,18 @@ def block_network_and_model_inference(monkeypatch):
         OllamaGenerationProvider,
     ):
         monkeypatch.setattr(model_class, "__init__", blocked)
+
+
+@pytest.fixture
+def deterministic_tokenizer(monkeypatch):
+    """Use reversible local bytes for tests that exercise token budgeting."""
+    import tiktoken
+
+    class LocalEncoding:
+        def encode(self, text, disallowed_special=()):
+            return list(text.encode("utf-8"))
+
+        def decode(self, tokens):
+            return bytes(tokens).decode("utf-8", errors="ignore")
+
+    monkeypatch.setattr(tiktoken, "get_encoding", lambda _name: LocalEncoding())
