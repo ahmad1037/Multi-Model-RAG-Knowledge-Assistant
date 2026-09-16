@@ -44,6 +44,8 @@ services:
       TEXT_EMBEDDING_DIMENSION: ${TEXT_EMBEDDING_DIMENSION}
       TEXT_EMBEDDING_BATCH_SIZE: ${TEXT_EMBEDDING_BATCH_SIZE}
       TEXT_EMBEDDING_DEVICE: ${TEXT_EMBEDDING_DEVICE:-cuda}
+      CLIP_DEVICE: ${CLIP_DEVICE:-cuda}
+      RERANKER_DEVICE: ${RERANKER_DEVICE:-cuda}
       TEXT_QUERY_INSTRUCTION: ${TEXT_QUERY_INSTRUCTION}
       HNSW_EF_SEARCH: ${HNSW_EF_SEARCH}
 
@@ -63,7 +65,7 @@ services:
       GENERATION_TEMPERATURE: ${GENERATION_TEMPERATURE:-0}
       MAX_GROUNDING_RETRIES: ${MAX_GROUNDING_RETRIES:-1}
       HF_TOKEN: ${HF_TOKEN}
-      HF_HOME: /cache/huggingface
+      HF_HOME: /root/.cache/huggingface
       HF_HUB_DOWNLOAD_TIMEOUT: "400"
     deploy:
       resources:
@@ -175,6 +177,10 @@ services:
       - .env
 
     environment:
+      TEXT_EMBEDDING_DEVICE: ${TEXT_EMBEDDING_DEVICE:-cuda}
+      CLIP_DEVICE: ${CLIP_DEVICE:-cuda}
+      RERANKER_DEVICE: ${RERANKER_DEVICE:-cuda}
+      HF_HOME: /root/.cache/huggingface
       DATABASE_URL: 
         postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
 
@@ -186,6 +192,15 @@ services:
 
       OLLAMA_BASE_URL:
         http://host.docker.internal:11434
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
 
     volumes:
 

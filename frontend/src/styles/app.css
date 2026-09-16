@@ -347,3 +347,58 @@ select {
 .document-list small {
   color: #6b7280;
 }
+
+/* Workspace layout and controls */
+.workspace { height: 100dvh; grid-template-columns: 270px minmax(0, 1fr) 300px; }
+.sidebar { overflow-y: auto; }
+.brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: #111; color: white; font-weight: 700; margin-bottom: 14px; }
+.brand-copy { margin-bottom: 28px; }
+.brand-copy p, .source-panel p { color: #666; font-size: 14px; }
+.sidebar label { display: block; margin-bottom: 8px; color: #000; font-size: 13px; font-weight: 600; }
+button, select { border: 1px solid #d5d5d5; border-radius: 8px; padding: 9px 12px; background: white; color: #111; }
+button { cursor: pointer; font-weight: 600; }
+button:hover:not(:disabled) { background: #eee; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+button:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #555; outline-offset: 3px; }
+.sidebar > select, .sidebar > button { width: 100%; margin-bottom: 12px; }
+.chat-panel, .messages { min-height: 0; }
+.chat-header { padding: 20px 24px; border-bottom: 1px solid #e5e7eb; background: white; }
+.chat-header h2 { margin-bottom: 3px; }
+.chat-header p { color: #666; font-size: 13px; }
+.chat-empty { max-width: 440px; margin: 12vh auto 0; text-align: center; }
+.chat-empty p { color: #666; }
+.message-role { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.message-content { white-space: pre-wrap; overflow-wrap: anywhere; }
+.user-message { background: #ededed; color: #111; }
+.chat-input textarea { background: #fff; color: #111; }
+.chat-input button[type=submit] { background: #111; color: white; }
+.chat-input button[type=submit]:hover:not(:disabled) { background: #333; }
+.thinking-status { padding: 14px 16px; border-radius: 12px; color: #555; font-size: 14px; }
+.thinking-status small { display: block; margin-top: 4px; }
+.workspace-error { position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 10; max-width: 90vw; padding: 12px; background: #fee2e2; color: #991b1b; border-radius: 8px; }
+.source-panel { overflow-wrap: anywhere; }
+.source-panel p { margin-top: 10px; }
+@media (max-width: 1100px) {
+  .workspace { grid-template-columns: 240px minmax(0, 1fr); }
+  .source-panel { display: none; }
+}
+@media (max-width: 640px) {
+  .workspace { display: flex; flex-direction: column; height: auto; min-height: 100dvh; }
+  .sidebar { border-right: 0; border-bottom: 1px solid #e5e7eb; }
+  .brand-mark { display: none; }
+  .brand-copy { margin-bottom: 16px; }
+  .chat-panel { min-height: 70dvh; }
+  .messages { max-height: 65dvh; padding: 16px; }
+  .chat-input { padding: 12px; }
+}
+
+.kb-controls { display: grid; gap: 8px; margin: 12px 0; }
+.kb-form { display: grid; gap: 10px; padding: 10px 0; }
+.kb-form label { display: grid; gap: 4px; font-size: 13px; }
+.kb-form input, .kb-form textarea { width: 100%; min-width: 0; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font: inherit; }
+.danger-button { color: #b42318; background: #fff4f2; border: 1px solid #fecdca; }
+.delete-confirmation { font-size: 13px; padding: 10px; border: 1px solid #fecdca; border-radius: 6px; }
+.delete-confirmation button { margin-bottom: 6px; }
+.grounding-option { display: flex; align-items: center; gap: 8px; margin: 10px 0 4px; font-size: 14px; }
+.grounding-option input { width: 16px; height: 16px; }
+.sidebar { overflow-y: auto; }

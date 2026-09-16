@@ -1,3 +1,4 @@
+import { KnowledgeBaseControls } from "../components/KnowledgeBaseControls";
 import {
   useEffect,
   useRef,
@@ -29,6 +30,7 @@ import {
 export function WorkspacePage() {
 
   const initialized = useRef(false);
+  const [isManagingKnowledgeBase, setIsManagingKnowledgeBase] = useState(false);
 
   const [
     knowledgeBases,
@@ -198,6 +200,7 @@ export function WorkspacePage() {
 
         <select
           id="knowledge-base"
+          disabled={isCreatingConversation || isManagingKnowledgeBase}
           value={
             knowledgeBaseId ?? ""
           }
@@ -209,6 +212,7 @@ export function WorkspacePage() {
           }}
         >
 
+          {knowledgeBases.length === 0 && <option value="">Create a knowledge base to begin</option>}
           {knowledgeBases.map(
             (kb) => (
 
@@ -226,6 +230,22 @@ export function WorkspacePage() {
         </select>
 
 
+        <KnowledgeBaseControls
+          key={knowledgeBaseId ?? "empty"}
+          selected={knowledgeBases.find(kb => kb.id === knowledgeBaseId)}
+          disabled={isCreatingConversation}
+          onBusyChange={setIsManagingKnowledgeBase}
+          onCreated={async kb => {
+            setKnowledgeBases(current => [kb, ...current]);
+            await selectKnowledgeBase(kb.id);
+          }}
+          onDeleted={async id => {
+            const remaining = knowledgeBases.filter(kb => kb.id !== id);
+            setKnowledgeBases(remaining);
+            await selectKnowledgeBase(remaining[0]?.id ?? "");
+          }}
+        />
+
         <button
           onClick={
             newConversation
@@ -234,6 +254,7 @@ export function WorkspacePage() {
           disabled={
             !knowledgeBaseId
             || isCreatingConversation
+            || isManagingKnowledgeBase
           }
         >
 
@@ -244,7 +265,7 @@ export function WorkspacePage() {
         </button>
 
         <DocumentPanel
-          knowledgeBaseId={knowledgeBaseId}
+          knowledgeBaseId={knowledgeBaseId || null}
         />
 
       </aside>

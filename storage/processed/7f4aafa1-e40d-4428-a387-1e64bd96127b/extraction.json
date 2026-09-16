@@ -1,0 +1,31 @@
+{
+  "pages": [
+    {
+      "page_number": 1,
+      "text": "Classic ML vs. Fine-tuned DistilBERT\n\nA comparison of test Macro F1 scores\n\n\n\n\n\nWhat the chart shows\n\n\nThe fine-tuned DistilBERT model scores 0.821 on test Macro F1, compared with 0.664 for the Classic ML\nmodel. Its score is higher by 0.157 F1 points.\n\n\nMacro F1 averages each class's F1 score equally. It reflects performance across classes rather than\nallowing a more common class to dominate the average.\n\n\nThe chart reports one test score for each model. It does not show class-level results, sample size, or uncertainty, so it\ncannot establish how consistent the difference would be across other datasets or runs.\n\n\n\n\n\nSource: supplied comparison chart                                                                                 1"
+    }
+  ],
+  "visuals": [
+    {
+      "asset_index": 0,
+      "page_number": 1,
+      "asset_type": "page",
+      "storage_path": "page_images/7f4aafa1-e40d-4428-a387-1e64bd96127b/page_0001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "06f51dec230ebdcd2a585eb46dbfddff93b71f7be8f3d9ac52852f07c1d810e3",
+      "width_px": 1191,
+      "height_px": 1684
+    },
+    {
+      "asset_index": 1,
+      "page_number": 1,
+      "asset_type": "embedded_image",
+      "storage_path": "extracted_images/7f4aafa1-e40d-4428-a387-1e64bd96127b/page_0001_image_001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "4dd97637dcb21d412f9e6e63ee4055c6bd1349b195549ea3a38ccc6eab21edb6",
+      "width_px": 600,
+      "height_px": 400
+    }
+  ],
+  "page_count": 1
+}

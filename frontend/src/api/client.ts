@@ -58,7 +58,7 @@ async function apiRequest<T>(
     );
   }
 
-  const data = (await response.json()) as T;
+  const data = (response.status === 204 ? undefined : await response.json()) as T;
 
   return {
     data,
@@ -108,17 +108,20 @@ export async function getMessages(
 export async function sendMessage(
   conversationId: string,
   message: string,
+  signal?: AbortSignal,
+  verifyGrounding = true,
 ) {
   return apiRequest<ConversationTurnResponse>(
     `/conversations/${conversationId}/messages`,
     {
       method: "POST",
+      signal,
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         message,
-        verify_grounding: true,
+        verify_grounding: verifyGrounding,
       }),
     },
   );
@@ -150,4 +153,28 @@ export async function getProcessingJob(
   return apiRequest<ProcessingJob>(
     `/processing-jobs/${jobId}`,
   );
+}
+
+export async function startDocumentProcessing(
+  documentId: string,
+) {
+  return apiRequest<ProcessingJob>(
+    `/documents/${encodeURIComponent(
+      documentId,
+    )}/process-async`,
+    {
+      method: "POST",
+    },
+  );
+}
+
+export async function createKnowledgeBase(payload: {name: string; slug: string; description: string | null}) {
+  return apiRequest<KnowledgeBase>("/knowledge-bases", {
+    method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteKnowledgeBase(id: string) {
+  return apiRequest<void>(`/knowledge-bases/${encodeURIComponent(id)}`, {method: "DELETE"});
 }

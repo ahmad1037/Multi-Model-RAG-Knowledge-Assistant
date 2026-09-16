@@ -98,7 +98,8 @@ def build_structured_blocks(
 
             nonlocal paragraph_lines
 
-            paragraph = " ".join(
+            separator = "\n" if any(line.startswith("|") for line in paragraph_lines) else " "
+            paragraph = separator.join(
                 paragraph_lines
             ).strip()
 

@@ -20,6 +20,7 @@ from app.schemas.processing_job import (
 from app.services.background_jobs import (
     enqueue_document_processing,
 )
+from app.services.document_ingestion import get_document
 
 from app.services.processing_jobs import (
     get_processing_job,
@@ -73,19 +74,23 @@ def processing_job_status(
 
 @router.post(
     "/documents/{document_id}/process-async",
-
-    response_model=(
-        ProcessingJobRead
-    ),
+    response_model=ProcessingJobRead,
+    
 
     status_code=(
         status.HTTP_202_ACCEPTED
     ),
 )
+
 def start_document_processing(
     document_id: uuid.UUID,
     db: DatabaseSession,
 ):
+    if get_document(db, document_id) is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document not found.",
+        )
 
     return (
         enqueue_document_processing(

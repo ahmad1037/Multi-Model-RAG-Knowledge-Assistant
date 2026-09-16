@@ -168,32 +168,9 @@ def process_document_job(
             db,
             job,
 
-            stage="visual_embedding",
-
-            progress=70,
-        )
-
-
-        embed_visual_assets(
-            db=db,
-
-            document_id=(
-                document_id
-            ),
-
-            force=False,
-
-            include_page_images=True,
-
-            include_embedded_images=True,
-        )
-        update_job(
-            db,
-            job,
-
             stage="visual_analysis",
 
-            progress=85,
+            progress=70,
         )
 
 
@@ -210,6 +187,35 @@ def process_document_job(
                 "page",
                 "embedded_image",
             ],
+
+            on_progress=lambda completed, total: update_job(
+                db,
+                job,
+                progress=70 + (14 * completed // total),
+            ),
+        )
+        update_job(
+            db,
+            job,
+
+            stage="visual_embedding",
+
+            progress=85,
+        )
+
+
+        embed_visual_assets(
+            db=db,
+
+            document_id=(
+                document_id
+            ),
+
+            force=False,
+
+            include_page_images=True,
+
+            include_embedded_images=True,
         )
     document = db.get(
         Document,

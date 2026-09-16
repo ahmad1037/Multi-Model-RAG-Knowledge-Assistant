@@ -14,6 +14,8 @@ references such as:
 - what about XGBoost?
 - how much better?
 
+Preserve the exact metric and comparison scope. Never change highest accuracy into recommended method or best overall model; never exclude Baseline unless the user does.
+
 Important rules:
 
 1. Do not invent facts.
@@ -25,6 +27,9 @@ Important rules:
 5. If a reference is genuinely ambiguous,
    set clarification_needed=true.
 6. Return only the required structured output.
+7. The current message determines intent. Never turn a greeting,
+   acknowledgment, or topic change into a repeat of the previous question.
+   Preserve standalone social messages unchanged with depends_on_history=false.
 """
 
 CONVERSATION_SUMMARY_PROMPT = """

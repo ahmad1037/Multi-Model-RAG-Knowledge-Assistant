@@ -50,12 +50,14 @@ export function MessageBubble({
 
       <div className="message-content">
 
-        {content}
+        {role === "assistant" && !content.trim()
+          ? "No answer was returned for this message. Please try asking again."
+          : content}
 
       </div>
 
 
-      {sources.length > 0 && (
+      {content.trim() && sources.length > 0 && (
 
         <div className="citation-list">
 

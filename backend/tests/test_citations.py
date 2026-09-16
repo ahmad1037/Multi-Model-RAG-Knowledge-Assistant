@@ -80,3 +80,10 @@ def test_declared_and_inline_must_match():
             context_items=CONTEXT,
         )
         
+
+@pytest.mark.parametrize("answer", ["", " \n "])
+def test_empty_successful_answer_is_rejected(answer):
+    with pytest.raises(CitationValidationError, match="non-empty"):
+        validate_citations(
+            answerable=True, answer=answer, declared_citations=[], context_items=CONTEXT,
+        )

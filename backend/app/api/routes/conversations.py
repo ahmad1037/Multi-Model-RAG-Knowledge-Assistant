@@ -143,3 +143,8 @@ def send_message(
             ),
             detail="Conversation not found.",
         ) from exc
+    except ConnectionError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="The language model service is unavailable. Please try again shortly.",
+        ) from exc

@@ -1,3 +1,5 @@
+from app.rag.generation.table_comparison import restore_table_rows
+
 def format_evidence_item(
     item: dict,
 ) -> str:
@@ -96,9 +98,7 @@ def format_evidence_item(
                 description
             )
 
-    return "\n".join(
-        lines
-    )
+    return restore_table_rows("\n".join(lines))
 
 
 def format_context(

@@ -24,6 +24,8 @@ supports it.
 
 Do not use outside knowledge.
 
+For highest/lowest/best metric claims, independently compare all table rows in that exact column, including Baseline unless explicitly excluded. Recommendation prose about another metric cannot support the comparison.
+
 A claim is unsupported if:
 
 - it is absent from the evidence,

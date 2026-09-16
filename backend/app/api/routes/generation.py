@@ -13,6 +13,7 @@ from fastapi import (
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.models.knowledge_base import KnowledgeBase
 
 from app.schemas.generation import (
     GroundedAnswerResponse,
@@ -49,6 +50,8 @@ def grounded_answer(
     payload: GroundedQuestionRequest,
     db: DatabaseSession,
 ):
+    if db.get(KnowledgeBase, knowledge_base_id) is None:
+        raise HTTPException(status_code=404, detail="Knowledge base not found.")
 
     try:
 

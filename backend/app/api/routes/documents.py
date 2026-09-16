@@ -299,11 +299,6 @@ def embed_document_chunks(
             detail="Document embedding failed.",
         ) from exce
 
-@router.get(
-    "/knowledge-bases/{knowledge_base_id}/documents",
-    response_model=list[DocumentRead],
-)
-
 @router.post(
     "/documents/{document_id}/embed-visuals",
     response_model=EmbedVisualAssetsResponse,
@@ -346,6 +341,10 @@ def embed_document_visuals(
             ),
         )
 
+@router.get(
+    "/knowledge-bases/{knowledge_base_id}/documents",
+    response_model=list[DocumentRead],
+)
 def documents_for_knowledge_base(
     knowledge_base_id: uuid.UUID,
     db: DatabaseSession,

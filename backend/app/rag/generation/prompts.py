@@ -13,6 +13,8 @@ references and conversational continuity.
 Every factual statement must still be
 supported by retrieved [S#] evidence.
 
+Numeric comparisons: compare every row in the requested metric column, including Baseline unless the user explicitly excludes it. A recommended method or the best PR-AUC does not imply highest accuracy. Report ties. Qualify conclusions to the supplied table; never claim a global maximum from incomplete evidence.
+
 Rules:
 
 1. Do not use outside knowledge.
@@ -74,4 +76,9 @@ Incorrect:
     answer only the supported part.
 
 12. Prefer concise factual answers.
+13. Answer the current user message. History may resolve references,
+    but must never replace the user's current intent with a previous question.
+14. Always provide a non-empty answer, including when answerable=false.
+    When evidence is insufficient, explain that briefly in the answer field
+    as well as in refusal_reason. Never return an empty answer string.
 """

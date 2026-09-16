@@ -1,9 +1,13 @@
 import uuid
+import logging
 
 from datetime import (
     datetime,
     timezone,
 )
+
+from celery.signals import worker_ready
+from sqlalchemy import select
 
 from app.core.config import settings
 
@@ -26,6 +30,33 @@ from app.services.background_pipeline import (
 from app.worker.celery_app import (
     celery_app,
 )
+
+logger = logging.getLogger(__name__)
+
+
+@worker_ready.connect
+def recover_interrupted_jobs(**_kwargs):
+    """Requeue jobs abandoned by the project's single worker on restart."""
+    from app.services.background_jobs import enqueue_document_processing
+
+    with SessionLocal() as db:
+        interrupted = db.scalars(
+            select(ProcessingJob).where(ProcessingJob.status == "running")
+        ).all()
+
+        for job in interrupted:
+            try:
+                document_id = job.document_id
+                job.status = "failed"
+                job.current_stage = "failed"
+                job.error_message = "Worker stopped before this job completed."
+                job.finished_at = datetime.now(timezone.utc)
+                db.commit()
+                enqueue_document_processing(db, document_id)
+                logger.info("Requeued interrupted document job %s", job.id)
+            except Exception:
+                db.rollback()
+                logger.exception("Could not recover interrupted job %s", job.id)
 
 @celery_app.task(
     bind=True,
@@ -62,6 +93,14 @@ def process_document_pipeline(
             raise ValueError(
                 "Processing job not found."
             )
+
+        # A late Redis redelivery must not rerun a job that was
+        # already completed or explicitly abandoned after worker loss.
+        if job.status in {"succeeded", "failed"}:
+            return {
+                "job_id": str(job.id),
+                "status": job.status,
+            }
 
 
         try:

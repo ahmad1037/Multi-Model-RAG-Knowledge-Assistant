@@ -1,10 +1,13 @@
 import uuid
+from fastapi.encoders import jsonable_encoder
 
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
 
 from app.models.message import Message
+from app.rag.memory.social import social_reply
+from app.schemas.query_rewrite import QueryRewriteOutput
 
 from app.rag.memory.history import (
     format_messages,
@@ -54,31 +57,14 @@ def run_conversation_turn(
         )
     )
 
-    user_message = Message(
-        conversation_id=(
-            conversation.id
-        ),
-
-        role="user",
-
-        content=message_text,
-
-        citations=[],
-
-        message_metadata={},
-    )
-
-    db.add(
-        user_message
-    )
-
-    db.commit()
-
-    db.refresh(
-        user_message
-    )
-
-    rewrite = rewrite_question(
+    direct_reply = social_reply(message_text)
+    rewrite = QueryRewriteOutput(
+        standalone_question=message_text,
+        depends_on_history=False,
+        resolved_references=[],
+        clarification_needed=False,
+        clarification_question="",
+    ) if direct_reply is not None else rewrite_question(
         current_question=(
             message_text
         ),
@@ -94,6 +80,17 @@ def run_conversation_turn(
     if (
         rewrite.clarification_needed
     ):
+
+        user_message = Message(
+            conversation_id=conversation.id,
+            role="user",
+            content=message_text,
+            citations=[],
+            message_metadata={},
+        )
+        db.add(user_message)
+        db.commit()
+        db.refresh(user_message)
 
         assistant_message = Message(
             conversation_id=(
@@ -180,7 +177,13 @@ RECENT CONVERSATION
 
 {history_text or "(none)"}
 """
-    answer = answer_question(
+    answer = {
+        "answer": direct_reply,
+        "answerable": True,
+        "citations": [],
+        "sources": [],
+        "grounding_verified": False,
+    } if direct_reply is not None else answer_question(
         db=db,
 
         knowledge_base_id=(
@@ -203,6 +206,17 @@ RECENT CONVERSATION
             verify_grounding
         ),
     )
+    user_message = Message(
+        conversation_id=conversation.id,
+        role="user",
+        content=message_text,
+        citations=[],
+        message_metadata={},
+    )
+    db.add(user_message)
+    db.commit()
+    db.refresh(user_message)
+
     assistant_message = Message(
         conversation_id=(
             conversation.id
@@ -221,7 +235,7 @@ RECENT CONVERSATION
         model_name=(
             settings
             .generation_model
-        ),
+        ) if direct_reply is None else None,
 
         message_metadata={
 
@@ -238,7 +252,7 @@ RECENT CONVERSATION
                 .resolved_references,
 
             "sources":
-                answer["sources"],
+                jsonable_encoder(answer["sources"]),
 
             "grounding_verified":
                 answer[
@@ -271,10 +285,11 @@ RECENT CONVERSATION
         )
 
         db.commit()
-    maybe_update_summary(
-        db,
-        conversation,
-    )
+    if direct_reply is None:
+        maybe_update_summary(
+            db,
+            conversation,
+        )
     return {
         "conversation_id":
             conversation.id,

@@ -64,6 +64,9 @@ def validate_citations(
     context_items: list[dict],
 ) -> list[str]:
 
+    if answerable and not answer.strip():
+        raise CitationValidationError("An answerable response must contain a non-empty answer.")
+
     allowed = {
         normalize_source_id(
             item["citation_id"]

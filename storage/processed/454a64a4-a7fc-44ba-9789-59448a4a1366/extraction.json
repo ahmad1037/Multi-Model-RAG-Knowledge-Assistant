@@ -1,0 +1,31 @@
+{
+  "pages": [
+    {
+      "page_number": 1,
+      "text": ""
+    }
+  ],
+  "visuals": [
+    {
+      "asset_index": 0,
+      "page_number": 1,
+      "asset_type": "page",
+      "storage_path": "page_images/454a64a4-a7fc-44ba-9789-59448a4a1366/page_0001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "7b8bd662b27025d2dca0f294ceee4a6168beb40e5d7a7192074529f48abd3fad",
+      "width_px": 900,
+      "height_px": 600
+    },
+    {
+      "asset_index": 1,
+      "page_number": 1,
+      "asset_type": "embedded_image",
+      "storage_path": "extracted_images/454a64a4-a7fc-44ba-9789-59448a4a1366/page_0001_image_001.png",
+      "mime_type": "image/png",
+      "checksum_sha256": "4dd97637dcb21d412f9e6e63ee4055c6bd1349b195549ea3a38ccc6eab21edb6",
+      "width_px": 600,
+      "height_px": 400
+    }
+  ],
+  "page_count": 1
+}

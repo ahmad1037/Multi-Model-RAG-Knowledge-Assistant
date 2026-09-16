@@ -1,5 +1,6 @@
 import logging
 import uuid
+from collections.abc import Callable
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -31,6 +32,7 @@ def analyze_document_visuals(
     document_id: uuid.UUID,
     force: bool = False,
     asset_types: list[str] | None = None,
+    on_progress: Callable[[int, int], None] | None = None,
 ) -> dict:
 
     document = db.get(
@@ -82,7 +84,7 @@ def analyze_document_visuals(
     skipped = 0
     failed = 0
 
-    for asset in assets:
+    for index, asset in enumerate(assets, start=1):
 
         current = (
             asset.vlm_status
@@ -98,6 +100,9 @@ def analyze_document_visuals(
         if current and not force:
 
             skipped += 1
+
+            if on_progress:
+                on_progress(index, len(assets))
 
             continue
 
@@ -117,6 +122,9 @@ def analyze_document_visuals(
             failed += 1
 
             db.commit()
+
+            if on_progress:
+                on_progress(index, len(assets))
 
             continue
 
@@ -205,6 +213,9 @@ def analyze_document_visuals(
                 db.commit()
 
             failed += 1
+
+        if on_progress:
+            on_progress(index, len(assets))
 
     return {
         "document_id":

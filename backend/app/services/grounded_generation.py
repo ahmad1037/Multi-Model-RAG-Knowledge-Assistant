@@ -1,4 +1,5 @@
 import uuid
+from app.rag.generation.table_comparison import accuracy_comparison
 
 from sqlalchemy.orm import Session
 
@@ -37,6 +38,7 @@ from app.schemas.generation import (
 from app.services.context_pipeline import (
     retrieve_rerank_and_select,
 )
+from app.services.hybrid_retrieval import NoHybridResultsError
 
 from app.observability.metrics import (
     ANSWER_OUTCOMES,
@@ -47,6 +49,7 @@ def generate_with_valid_citations(
     *,
     question: str,
     context_items: list[dict],
+    conversation_context: str | None = None,
 ) -> tuple[
     GroundedModelOutput,
     list[str],
@@ -55,6 +58,7 @@ def generate_with_valid_citations(
     generated = generate_once(
         question=question,
         context_items=context_items,
+        conversation_context=conversation_context,
     )
 
     try:
@@ -103,6 +107,7 @@ Citation requirements:
         generated = generate_once(
             question=question,
             context_items=context_items,
+            conversation_context=conversation_context,
             corrective_instruction=(
                 correction
             ),
@@ -243,20 +248,14 @@ def answer_question(
     conversation_context: str | None = None,
 ) -> dict:
 
-    retrieval = (
-        retrieve_rerank_and_select(
-        db=db,
-
-        knowledge_base_id=(
-            knowledge_base_id
-        ),
-
-        query=(
-            retrieval_query
-            or question
-        ),
+    try:
+        retrieval = retrieve_rerank_and_select(
+            db=db,
+            knowledge_base_id=knowledge_base_id,
+            query=retrieval_query or question,
         )
-    )
+    except NoHybridResultsError:
+        return safe_refusal(question)
 
     context_items = (
         retrieval[
@@ -272,6 +271,21 @@ def answer_question(
             question
         )
 
+    comparison = accuracy_comparison(question, context_items)
+    if comparison is not None:
+        citations = validate_citations(
+            answerable=True, answer=comparison["answer"],
+            declared_citations=comparison["citations"], context_items=context_items,
+        )
+        ANSWER_OUTCOMES.labels(outcome="answerable").inc()
+        return {
+            "answerable": True, "answer": comparison["answer"],
+            "citations": citations,
+            "sources": build_source_records(context_items, citations),
+            "refusal_reason": None, "generation_model": "table-comparison",
+            "grounding_verified": verify_grounding, "unsupported_claims": [],
+        }
+
     evidence_text = (
         format_context(
             context_items
@@ -285,6 +299,7 @@ def answer_question(
             citations,
         ) = generate_with_valid_citations(
             question=question,
+            conversation_context=conversation_context,
             context_items=context_items,
         )
 
@@ -339,7 +354,9 @@ def answer_question(
                 False,
 
             "answer":
-                generated.answer,
+                (generated.answer.strip() or generated.refusal_reason.strip()
+                 or "I couldn't find enough supported evidence in the selected knowledge base "
+                    "to answer that question."),
 
             "citations":
                 [],
@@ -457,6 +474,7 @@ directly supported by the evidence.
                 context_items
             ),
 
+            conversation_context=conversation_context,
             corrective_instruction=(
                 correction
             ),
