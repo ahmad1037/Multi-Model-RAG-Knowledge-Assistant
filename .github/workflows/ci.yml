@@ -117,6 +117,14 @@ jobs:
         run: uv sync --frozen
 
 
+      - name: Enable pgvector
+
+        run: >-
+          docker exec "${{ job.services.postgres.id }}"
+          psql -U rag_user -d rag_db
+          -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+
       - name: Run database migrations
 
         working-directory: backend
@@ -201,7 +209,9 @@ jobs:
 
       - name: Validate Compose
 
-        run: docker compose config
+        run: |
+          cp .env.example .env
+          docker compose config -q
 
 
       - name: Build backend image
