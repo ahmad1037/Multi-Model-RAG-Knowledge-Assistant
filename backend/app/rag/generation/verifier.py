@@ -4,10 +4,6 @@ from app.rag.generation.factory import (
     get_generation_provider,
 )
 
-from app.rag.generation.output_schemas import (
-    GROUNDING_VERIFICATION_SCHEMA,
-)
-
 from app.schemas.generation import (
     VerificationOutput,
 )

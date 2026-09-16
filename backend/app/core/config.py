@@ -6,8 +6,6 @@ from pydantic_settings import (
     SettingsConfigDict,
 )
 
-from pydantic import SecretStr
-
 class Settings(BaseSettings):
 
     app_env: str = "development"

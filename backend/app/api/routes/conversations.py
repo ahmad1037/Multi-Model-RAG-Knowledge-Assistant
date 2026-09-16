@@ -1,4 +1,5 @@
 import uuid
+from typing import Annotated
 
 from fastapi import (
     APIRouter,
@@ -7,14 +8,8 @@ from fastapi import (
     status,
 )
 
-from typing import Annotated
 from sqlalchemy.orm import Session
 from app.db.session import get_db
-
-DatabaseSession = Annotated[
-    Session,
-    Depends(get_db)
-]
 
 from app.schemas.conversation import (
     ConversationCreate,
@@ -32,6 +27,11 @@ from app.services.conversations import (
 from app.schemas.conversation_turn import (
     run_conversation_turn,
 )
+
+DatabaseSession = Annotated[
+    Session,
+    Depends(get_db)
+]
 
 router = APIRouter(
     tags=["conversations"],

@@ -8,7 +8,6 @@ from pydantic import (
 )
 
 from app.schemas.processing_job import ProcessingJobRead
-from pydantic import BaseModel, ConfigDict
 
 
 class DocumentRead(BaseModel):

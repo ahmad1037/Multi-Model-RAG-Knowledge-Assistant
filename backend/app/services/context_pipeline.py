@@ -1,9 +1,5 @@
 import uuid
 
-from app.observability.logging import (
-    get_logger,
-)
-
 from sqlalchemy.orm import Session
 
 from app.rag.context.selector import (

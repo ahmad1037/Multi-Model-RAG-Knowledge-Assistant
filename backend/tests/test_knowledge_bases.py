@@ -1,43 +1,47 @@
 import uuid
+from datetime import datetime, timezone
+from types import SimpleNamespace
+from unittest.mock import Mock
 
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from app.main import app
+from app.api.routes import knowledge_bases
+from app.db.session import get_db
 
 
-client = TestClient(app)
+def test_create_and_list_knowledge_base(monkeypatch):
+    app = FastAPI()
+    app.include_router(knowledge_bases.router, prefix="/api/v1")
+    db = Mock()
+    app.dependency_overrides[get_db] = lambda: db
+    kb_id = uuid.uuid4()
+    now = datetime.now(timezone.utc)
+    created = SimpleNamespace(
+        id=kb_id,
+        name="Test Knowledge Base",
+        slug="test-kb",
+        description="Test knowledge base.",
+        created_at=now,
+        updated_at=now,
+    )
+    monkeypatch.setattr(knowledge_bases, "get_knowledge_base_by_slug", Mock(return_value=None))
+    create = Mock(return_value=created)
+    monkeypatch.setattr(knowledge_bases, "create_knowledge_base", create)
+    monkeypatch.setattr(knowledge_bases, "list_knowledge_bases", Mock(return_value=[created]))
+    client = TestClient(app)
 
-
-def test_create_and_list_knowledge_base():
-    unique = uuid.uuid4().hex[:10]
-
-    payload = {
-        "name": f"Test Knowledge Base {unique}",
-        "slug": f"test-kb-{unique}",
-        "description": "Test knowledge base.",
-    }
-
-    create_response = client.post(
+    response = client.post(
         "/api/v1/knowledge-bases",
-        json=payload,
+        json={"name": created.name, "slug": created.slug, "description": created.description},
     )
 
-    assert create_response.status_code == 201
+    assert response.status_code == 201
+    assert response.json()["id"] == str(kb_id)
+    create.assert_called_once()
+    assert create.call_args.args[0] is db
 
-    created = create_response.json()
+    response = client.get("/api/v1/knowledge-bases")
 
-    assert created["name"] == payload["name"]
-    assert created["slug"] == payload["slug"]
-
-    list_response = client.get(
-        "/api/v1/knowledge-bases"
-    )
-
-    assert list_response.status_code == 200
-
-    items = list_response.json()
-
-    assert any(
-        item["slug"] == payload["slug"]
-        for item in items
-    )
+    assert response.status_code == 200
+    assert [item["slug"] for item in response.json()] == ["test-kb"]

@@ -19,10 +19,6 @@ from app.rag.generation.factory import (
     get_generation_provider,
 )
 
-from app.rag.generation.output_schemas import (
-    GROUNDED_ANSWER_SCHEMA,
-)
-
 from app.rag.generation.prompts import (
     GROUNDED_SYSTEM_PROMPT,
 )

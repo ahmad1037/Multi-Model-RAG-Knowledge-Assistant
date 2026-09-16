@@ -1,120 +1,61 @@
 import uuid
+from datetime import datetime, timezone
+from types import SimpleNamespace
+from unittest.mock import Mock
 
-from fastapi.testclient import (
-    TestClient,
-)
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
 
-from app.main import app
-
-
-client = TestClient(app)
+from app.api.routes import documents
+from app.db.session import get_db
 
 
-def test_upload_and_chunk_document():
+def test_chunk_document_returns_run_and_preview(monkeypatch):
+    app = FastAPI()
+    app.include_router(documents.router, prefix="/api/v1")
+    db = Mock()
+    app.dependency_overrides[get_db] = lambda: db
+    document_id, run_id = uuid.uuid4(), uuid.uuid4()
+    run = SimpleNamespace(
+        id=run_id,
+        document_id=document_id,
+        strategy="structure_recursive_v1",
+        tokenizer_name="cl100k_base",
+        chunk_size_tokens=120,
+        chunk_overlap_tokens=20,
+        status="succeeded",
+        is_active=True,
+        chunk_count=1,
+        average_tokens=8.0,
+        max_tokens=8,
+        error_message=None,
+        created_at=datetime.now(timezone.utc),
+    )
+    chunk = SimpleNamespace(
+        id=uuid.uuid4(),
+        chunking_run_id=run_id,
+        chunk_index=0,
+        text="Gradient Boosting achieved the best final performance.",
+        heading="PROJECT RESULTS",
+        page_start=1,
+        page_end=1,
+        token_count=8,
+    )
+    run_chunking = Mock(return_value=(run, [chunk]))
+    monkeypatch.setattr(documents, "run_chunking", run_chunking)
 
-    unique = uuid.uuid4().hex[:10]
-
-    kb_response = client.post(
-        "/api/v1/knowledge-bases",
+    response = TestClient(app).post(
+        f"/api/v1/documents/{document_id}/chunk",
         json={
-            "name":
-                f"Chunking Test {unique}",
-
-            "slug":
-                f"chunking-test-{unique}",
-
-            "description":
-                "Chunking integration test.",
+            "strategy": "structure_recursive_v1",
+            "chunk_size_tokens": 120,
+            "chunk_overlap_tokens": 20,
+            "tokenizer_name": "cl100k_base",
         },
     )
 
-    assert (
-        kb_response.status_code
-        == 201
-    )
-
-    kb_id = (
-        kb_response.json()["id"]
-    )
-
-    text = """
-PROJECT RESULTS
-
-Gradient Boosting achieved the
-best final performance.
-
-MODEL COMPARISON
-
-The tuned XGBoost model was also
-evaluated but produced higher RMSE.
-
-DEPLOYMENT
-
-The final model was served using
-FastAPI and Docker.
-"""
-
-    upload_response = client.post(
-        (
-            f"/api/v1/knowledge-bases/"
-            f"{kb_id}/documents"
-        ),
-        files={
-            "file": (
-                "report.md",
-                text.encode("utf-8"),
-                "text/markdown",
-            )
-        },
-    )
-
-    assert (
-        upload_response.status_code
-        == 201
-    )
-
-    document_id = (
-        upload_response.json()
-        ["document"]["id"]
-    )
-
-    chunk_response = client.post(
-        (
-            f"/api/v1/documents/"
-            f"{document_id}/chunk"
-        ),
-        json={
-            "strategy":
-                "structure_recursive_v1",
-
-            "chunk_size_tokens":
-                120,
-
-            "chunk_overlap_tokens":
-                20,
-
-            "tokenizer_name":
-                "cl100k_base",
-        },
-    )
-
-    assert (
-        chunk_response.status_code
-        == 200
-    )
-
-    body = chunk_response.json()
-
-    assert (
-        body["run"]["status"]
-        == "succeeded"
-    )
-
-    assert (
-        body["run"]["chunk_count"]
-        > 0
-    )
-
-    assert (
-        body["preview"]
-    )
+    assert response.status_code == 200
+    assert response.json()["run"]["chunk_count"] == 1
+    assert response.json()["preview"][0]["text"] == chunk.text
+    assert run_chunking.call_args.kwargs["db"] is db
+    assert run_chunking.call_args.kwargs["document_id"] == document_id

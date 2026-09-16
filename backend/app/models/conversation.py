@@ -1,17 +1,11 @@
 import uuid
 
-from sqlalchemy import ForeignKey, String
+from sqlalchemy import ForeignKey, Integer, String, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
 from app.models.mixins import TimestampMixin
-from sqlalchemy import (
-    ForeignKey,
-    Integer,
-    String,
-    Text,
-)
 
 class Conversation(
     TimestampMixin,

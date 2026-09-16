@@ -1,7 +1,5 @@
 import uuid
 import logging
-
-logger = logging.getLogger(__name__)
 from typing import Annotated
 
 from fastapi import (
@@ -24,6 +22,7 @@ from app.services.grounded_generation import (
     answer_question,
 )
 
+logger = logging.getLogger(__name__)
 
 router = APIRouter(
     tags=["generation"],

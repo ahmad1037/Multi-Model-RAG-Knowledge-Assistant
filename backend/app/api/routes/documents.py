@@ -6,7 +6,6 @@ from typing import Annotated
 from fastapi import (
     APIRouter,
     Depends,
-    File,
     HTTPException,
     UploadFile,
     status,
