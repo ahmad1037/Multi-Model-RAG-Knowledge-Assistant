@@ -13,6 +13,9 @@ from fastapi import (
 
 from sqlalchemy.orm import Session
 
+from app.core.deployment import (
+    require_local_inference,
+)
 from app.db.session import get_db
 
 from app.schemas.document import (
@@ -99,6 +102,8 @@ async def upload_document(
     file: UploadFile,
     db: DatabaseSession,
 ):
+
+    require_local_inference()
 
     try:
 
@@ -270,6 +275,8 @@ def embed_document_chunks(
     db: DatabaseSession,
 ):
 
+    require_local_inference()
+
     try:
 
         return embed_document(
@@ -307,6 +314,8 @@ def embed_document_visuals(
     payload: EmbedVisualAssetsRequest,
     db: DatabaseSession,
 ):
+
+    require_local_inference()
 
     try:
 
@@ -386,6 +395,8 @@ def analyze_visuals(
     payload: AnalyzeVisualsRequest,
     db: DatabaseSession,
 ):
+
+    require_local_inference()
 
     return analyze_document_visuals(
         db=db,

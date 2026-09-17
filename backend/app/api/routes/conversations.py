@@ -8,6 +8,10 @@ from fastapi import (
     status,
 )
 
+from app.core.deployment import (
+    require_local_inference,
+)
+
 from sqlalchemy.orm import Session
 from app.db.session import get_db
 
@@ -123,6 +127,7 @@ def send_message(
     payload: ConversationTurnRequest,
     db: DatabaseSession,
 ):
+    require_local_inference()
     try:
         return run_conversation_turn(
             db=db,

@@ -11,6 +11,9 @@ from fastapi import (
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.core.deployment import (
+    require_local_inference,
+)
 from app.db.session import get_db
 
 from app.rag.retrieval.visual import (
@@ -73,6 +76,8 @@ def visual_search(
     payload: TextToImageSearchRequest,
     db: DatabaseSession,
 ):
+
+    require_local_inference()
 
     try:
 
@@ -146,6 +151,8 @@ async def image_search(
 
     asset_type: str = Form("all"),
 ):
+
+    require_local_inference()
 
     temp_path: Path | None = None
 

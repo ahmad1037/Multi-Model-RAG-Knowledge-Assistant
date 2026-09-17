@@ -168,6 +168,21 @@ class Settings(BaseSettings):
 
     processing_retry_delay_seconds: int = 30
 
+    # -------------------------
+    # Deployment
+    # -------------------------
+
+    deployment_mode: str = "local_full"
+
+    storage_backend: str = "local"
+
+
+    azure_storage_connection_string: str | None = None
+
+    azure_storage_container: str = (
+        "rag-documents"
+    )
+
 @lru_cache
 def get_settings() -> Settings:
     return Settings()

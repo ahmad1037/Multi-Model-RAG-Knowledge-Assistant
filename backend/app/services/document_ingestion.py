@@ -6,6 +6,9 @@ from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.storage.factory import (
+    get_azure_blob_storage,
+)
 
 from app.models.document import Document
 from app.models.knowledge_base import (
@@ -136,13 +139,30 @@ async def prepare_document_upload(
 
         document_id = uuid.uuid4()
 
-        (
-            stored_filename,
-            relative_path,
-        ) = storage.finalize_upload(
-            staged,
-            document_id,
-        )
+        if settings.storage_backend == "azure_blob":
+            stored_filename = (
+                f"{document_id}{staged.extension}"
+            )
+            relative_path = (
+                f"{knowledge_base_id}/"
+                f"{document_id}/source/"
+                f"{stored_filename}"
+            )
+
+            get_azure_blob_storage().upload_bytes(
+                blob_name=relative_path,
+                data=staged.path.read_bytes(),
+                content_type=staged.media_type,
+            )
+            storage.remove_staged(staged)
+        else:
+            (
+                stored_filename,
+                relative_path,
+            ) = storage.finalize_upload(
+                staged,
+                document_id,
+            )
 
         document = Document(
             id=document_id,

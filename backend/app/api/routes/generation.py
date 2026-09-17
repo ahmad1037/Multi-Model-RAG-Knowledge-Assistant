@@ -8,6 +8,10 @@ from fastapi import (
     HTTPException,
 )
 
+from app.core.deployment import (
+    require_local_inference,
+)
+
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
@@ -49,6 +53,8 @@ def grounded_answer(
     payload: GroundedQuestionRequest,
     db: DatabaseSession,
 ):
+    require_local_inference()
+
     if db.get(KnowledgeBase, knowledge_base_id) is None:
         raise HTTPException(status_code=404, detail="Knowledge base not found.")
 

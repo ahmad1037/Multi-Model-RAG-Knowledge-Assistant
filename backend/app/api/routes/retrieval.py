@@ -12,6 +12,9 @@ from app.core.config import settings
 
 from sqlalchemy.orm import Session
 
+from app.core.deployment import (
+    require_local_inference,
+)
 from app.db.session import get_db
 
 from app.rag.retrieval.semantic import (
@@ -79,6 +82,8 @@ def search_knowledge_base(
     payload: SemanticSearchRequest,
     db: DatabaseSession,
 ):
+
+    require_local_inference()
 
     try:
 
@@ -165,6 +170,8 @@ def hybrid_search_endpoint(
     db: DatabaseSession,
 ):
 
+    require_local_inference()
+
     try:
 
         return hybrid_search(
@@ -210,6 +217,8 @@ def rerank_search_endpoint(
     db: DatabaseSession,
 ):
 
+    require_local_inference()
+
     return retrieve_and_rerank(
         db=db,
 
@@ -232,6 +241,8 @@ def context_endpoint(
     payload: LexicalSearchRequest,
     db: DatabaseSession,
 ):
+
+    require_local_inference()
 
     return (
         retrieve_rerank_and_select(

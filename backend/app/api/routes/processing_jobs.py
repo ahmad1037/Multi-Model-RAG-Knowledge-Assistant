@@ -11,6 +11,9 @@ from fastapi import (
 
 from sqlalchemy.orm import Session
 
+from app.core.deployment import (
+    require_local_inference,
+)
 from app.db.session import get_db
 
 from app.schemas.processing_job import (
@@ -86,6 +89,8 @@ def start_document_processing(
     document_id: uuid.UUID,
     db: DatabaseSession,
 ):
+    require_local_inference()
+
     if get_document(db, document_id) is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
