@@ -192,11 +192,17 @@ export function WorkspacePage() {
         <div className="brand-mark">MR</div>
 
         <div className="brand-copy">
-          <CloudModeBanner />
-
           <h1>Multimodal RAG</h1>
           <p>Knowledge workspace</p>
         </div>
+
+        <CloudModeBanner />
+
+        {error && (
+          <div className="workspace-error" role="alert">
+            {error}
+          </div>
+        )}
 
         <label htmlFor="knowledge-base">
           Knowledge base
@@ -275,11 +281,6 @@ export function WorkspacePage() {
 
       </aside>
 
-      {error && (
-        <div className="workspace-error" role="alert">
-          {error}
-        </div>
-      )}
 
 
       <ChatPanel

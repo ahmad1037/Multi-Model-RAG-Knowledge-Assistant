@@ -18,9 +18,8 @@ export function CloudModeBanner() {
 
     <div className="cloud-mode-banner">
 
-      Cloud infrastructure demo.
-      Full Ollama multimodal chat
-      runs locally.
+      <strong>Cloud demo</strong>
+      <p>Manage your documents here. Full AI chat runs locally with Ollama.</p>
 
     </div>
   );
