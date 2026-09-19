@@ -186,13 +186,14 @@ export function WorkspacePage() {
     return (
     <div className="workspace">
 
-      <CloudModeBanner />
 
       <aside className="sidebar">
 
         <div className="brand-mark">MR</div>
 
         <div className="brand-copy">
+          <CloudModeBanner />
+
           <h1>Multimodal RAG</h1>
           <p>Knowledge workspace</p>
         </div>

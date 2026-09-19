@@ -27,6 +27,11 @@ documents, charts, diagrams, screenshots, and images.
 
 Milestone 1 — Platform foundation
 
+## Cloud cost guardrails
+
+Follow the [Azure deployment cost guardrails](infra/COST_GUARDRAILS.md) when
+provisioning or changing cloud resources.
+
 ## Tests
 
 Run the normal backend suite from the repository root:
