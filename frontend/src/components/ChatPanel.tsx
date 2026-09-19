@@ -39,6 +39,10 @@ export function ChatPanel({
   initialMessages = EMPTY_MESSAGES,
   onSourceClick,
 }: Props) {
+  const cloudInfrastructureMode =
+    import.meta.env
+      .VITE_DEPLOYMENT_MODE
+    === "cloud_infrastructure";
   const activeRequest = useRef<AbortController | null>(null);
   const [verifyGrounding, setVerifyGrounding] = useState(true);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
@@ -54,6 +58,7 @@ export function ChatPanel({
     setInput,
   ] = useState("");
 
+  
   const [
     isSending,
     setIsSending,
@@ -250,9 +255,15 @@ export function ChatPanel({
             )
           }
           placeholder={
-            conversationId
-              ? "Ask about your documents..."
-              : "Select or create a conversation first."
+            cloudInfrastructureMode
+
+              ? "Full AI chat is available in the local Ollama demo."
+
+              : conversationId
+
+                ? "Ask about your documents..."
+
+                : "Select or create a conversation first."
           }
           disabled={
             !conversationId
@@ -266,9 +277,13 @@ export function ChatPanel({
         <button
           type="submit"
           disabled={
+            cloudInfrastructureMode
+            ||
             !conversationId
-            || isSending
-            || !input.trim()
+            ||
+            isSending
+            ||
+            !input.trim()
           }
         >
           Send

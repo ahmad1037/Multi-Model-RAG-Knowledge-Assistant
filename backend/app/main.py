@@ -36,6 +36,9 @@ from app.observability.logging import (
 from app.api.routes.processing_jobs import (
     router as processing_jobs_router,
 )
+from fastapi.middleware.cors import (
+    CORSMiddleware,
+)
 configure_logging()
 app = FastAPI(
     title="Multimodal RAG Knowledge Assistant API",
@@ -45,7 +48,33 @@ app = FastAPI(
     ),
     version="0.1.0",
 )
+allowed_origins = [
 
+    origin.strip()
+
+    for origin
+    in settings
+    .cors_origins
+    .split(",")
+
+    if origin.strip()
+]
+
+
+app.add_middleware(
+
+    CORSMiddleware,
+
+    allow_origins=(
+        allowed_origins
+    ),
+
+    allow_credentials=True,
+
+    allow_methods=["*"],
+
+    allow_headers=["*"],
+)
 app.middleware("http")(
     observability_middleware
 )

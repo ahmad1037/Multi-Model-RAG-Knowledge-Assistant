@@ -23,6 +23,8 @@ import {
   SourcePanel,
 } from "../components/SourcePanel";
 
+import { CloudModeBanner } from "../components/CloudModeBanner";
+
 import {
   DocumentPanel,
 } from "../components/DocumentPanel";
@@ -183,6 +185,8 @@ export function WorkspacePage() {
   }
     return (
     <div className="workspace">
+
+      <CloudModeBanner />
 
       <aside className="sidebar">
 

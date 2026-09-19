@@ -183,6 +183,10 @@ class Settings(BaseSettings):
         "rag-documents"
     )
 
+    cors_origins: str = (
+        "http://localhost:5173"
+    )
+
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
