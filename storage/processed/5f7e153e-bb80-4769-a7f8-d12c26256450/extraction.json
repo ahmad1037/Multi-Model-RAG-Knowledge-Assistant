@@ -1,0 +1,10 @@
+{
+  "pages": [
+    {
+      "page_number": null,
+      "text": "# Background processing demonstration\n\nThis synthetic document is used only to capture the local application's upload and\nbackground-processing interface. It is not a source for the retail benchmark.\n\nThe ingestion workflow extracts document text, creates chunks, and stores BGE\nembeddings in PostgreSQL. Documents with visual assets additionally undergo visual\nanalysis and CLIP embedding. Celery records the current stage and progress so the\nfrontend can display actual job status while processing continues in the worker.\n\nThe demo knowledge base is named Documentation Capture and is excluded from final\nbenchmark measurements. This text contains no financial or model-performance results.\n"
+    }
+  ],
+  "visuals": [],
+  "page_count": null
+}

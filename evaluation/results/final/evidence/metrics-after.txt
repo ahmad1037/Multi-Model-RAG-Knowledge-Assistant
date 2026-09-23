@@ -1,0 +1,691 @@
+# HELP python_gc_objects_collected_total Objects collected during gc
+# TYPE python_gc_objects_collected_total counter
+python_gc_objects_collected_total{generation="0"} 12578.0
+python_gc_objects_collected_total{generation="1"} 3288.0
+python_gc_objects_collected_total{generation="2"} 1350.0
+# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC
+# TYPE python_gc_objects_uncollectable_total counter
+python_gc_objects_uncollectable_total{generation="0"} 0.0
+python_gc_objects_uncollectable_total{generation="1"} 0.0
+python_gc_objects_uncollectable_total{generation="2"} 0.0
+# HELP python_gc_collections_total Number of times this generation was collected
+# TYPE python_gc_collections_total counter
+python_gc_collections_total{generation="0"} 1753.0
+python_gc_collections_total{generation="1"} 159.0
+python_gc_collections_total{generation="2"} 9.0
+# HELP python_info Python platform information
+# TYPE python_info gauge
+python_info{implementation="CPython",major="3",minor="12",patchlevel="14",version="3.12.14"} 1.0
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes 4.6687424512e+10
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 1.856806912e+09
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1.79016612006e+09
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total 34.5
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds 34.0
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds 1.048576e+06
+# HELP rag_http_requests_total Total number of HTTP requests
+# TYPE rag_http_requests_total counter
+rag_http_requests_total{method="GET",route="/docs",status_class="2xx"} 52.0
+rag_http_requests_total{method="GET",route="/knowledge-bases",status_class="2xx"} 2.0
+rag_http_requests_total{method="GET",route="/knowledge-bases/{knowledge_base_id}/documents",status_class="2xx"} 6.0
+rag_http_requests_total{method="GET",route="/metrics/",status_class="2xx"} 2.0
+rag_http_requests_total{method="POST",route="/knowledge-bases/{knowledge_base_id}/search",status_class="2xx"} 24.0
+rag_http_requests_total{method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search",status_class="2xx"} 6.0
+rag_http_requests_total{method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search",status_class="2xx"} 48.0
+rag_http_requests_total{method="POST",route="/knowledge-bases/{knowledge_base_id}/answer",status_class="2xx"} 4.0
+rag_http_requests_total{method="POST",route="/knowledge-bases/{kb_id}/conversations",status_class="2xx"} 2.0
+rag_http_requests_total{method="POST",route="/conversations/{conversation_id}/messages",status_class="2xx"} 4.0
+# HELP rag_http_requests_created Total number of HTTP requests
+# TYPE rag_http_requests_created gauge
+rag_http_requests_created{method="GET",route="/docs",status_class="2xx"} 1.790166141663368e+09
+rag_http_requests_created{method="GET",route="/knowledge-bases",status_class="2xx"} 1.7901661551972055e+09
+rag_http_requests_created{method="GET",route="/knowledge-bases/{knowledge_base_id}/documents",status_class="2xx"} 1.7901661552188451e+09
+rag_http_requests_created{method="GET",route="/metrics/",status_class="2xx"} 1.7901661552378683e+09
+rag_http_requests_created{method="POST",route="/knowledge-bases/{knowledge_base_id}/search",status_class="2xx"} 1.7901661682345033e+09
+rag_http_requests_created{method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search",status_class="2xx"} 1.7901661729662812e+09
+rag_http_requests_created{method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search",status_class="2xx"} 1.7901661731836221e+09
+rag_http_requests_created{method="POST",route="/knowledge-bases/{knowledge_base_id}/answer",status_class="2xx"} 1.790166207784471e+09
+rag_http_requests_created{method="POST",route="/knowledge-bases/{kb_id}/conversations",status_class="2xx"} 1.7901662090956457e+09
+rag_http_requests_created{method="POST",route="/conversations/{conversation_id}/messages",status_class="2xx"} 1.7901662127294645e+09
+# HELP rag_http_request_duration_seconds HTTP request duration
+# TYPE rag_http_request_duration_seconds histogram
+rag_http_request_duration_seconds_bucket{le="0.005",method="GET",route="/docs"} 50.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="GET",route="/docs"} 51.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_count{method="GET",route="/docs"} 52.0
+rag_http_request_duration_seconds_sum{method="GET",route="/docs"} 0.06289361799986182
+rag_http_request_duration_seconds_bucket{le="0.005",method="GET",route="/knowledge-bases"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="GET",route="/knowledge-bases"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="GET",route="/knowledge-bases"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="GET",route="/knowledge-bases"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_count{method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_sum{method="GET",route="/knowledge-bases"} 0.11442560600005436
+rag_http_request_duration_seconds_bucket{le="0.005",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 4.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 4.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_count{method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_sum{method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 0.04972893699994074
+rag_http_request_duration_seconds_bucket{le="0.005",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_count{method="GET",route="/metrics/"} 2.0
+rag_http_request_duration_seconds_sum{method="GET",route="/metrics/"} 0.0052586770001425975
+rag_http_request_duration_seconds_bucket{le="0.005",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 22.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 22.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 22.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 22.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 22.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 22.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 22.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 22.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 22.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 22.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 24.0
+rag_http_request_duration_seconds_count{method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 24.0
+rag_http_request_duration_seconds_sum{method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 27.303206431999797
+rag_http_request_duration_seconds_bucket{le="0.005",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 4.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 4.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 4.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 4.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 4.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 4.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 4.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 6.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 6.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 6.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 6.0
+rag_http_request_duration_seconds_count{method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 6.0
+rag_http_request_duration_seconds_sum{method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 8.099715285000116
+rag_http_request_duration_seconds_bucket{le="0.005",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 20.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 20.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_count{method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 48.0
+rag_http_request_duration_seconds_sum{method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 3.0432448890003343
+rag_http_request_duration_seconds_bucket{le="0.005",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 0.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 0.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 2.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 2.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 2.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 2.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 4.0
+rag_http_request_duration_seconds_count{method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 4.0
+rag_http_request_duration_seconds_sum{method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 67.88342029299986
+rag_http_request_duration_seconds_bucket{le="0.005",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_count{method="POST",route="/knowledge-bases/{kb_id}/conversations"} 2.0
+rag_http_request_duration_seconds_sum{method="POST",route="/knowledge-bases/{kb_id}/conversations"} 0.05354640600012317
+rag_http_request_duration_seconds_bucket{le="0.005",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="POST",route="/conversations/{conversation_id}/messages"} 0.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="POST",route="/conversations/{conversation_id}/messages"} 2.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="POST",route="/conversations/{conversation_id}/messages"} 2.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="POST",route="/conversations/{conversation_id}/messages"} 4.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="POST",route="/conversations/{conversation_id}/messages"} 4.0
+rag_http_request_duration_seconds_count{method="POST",route="/conversations/{conversation_id}/messages"} 4.0
+rag_http_request_duration_seconds_sum{method="POST",route="/conversations/{conversation_id}/messages"} 23.101464485000065
+# HELP rag_http_request_duration_seconds_created HTTP request duration
+# TYPE rag_http_request_duration_seconds_created gauge
+rag_http_request_duration_seconds_created{method="GET",route="/docs"} 1.790166141663392e+09
+rag_http_request_duration_seconds_created{method="GET",route="/knowledge-bases"} 1.7901661551972382e+09
+rag_http_request_duration_seconds_created{method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 1.7901661552188706e+09
+rag_http_request_duration_seconds_created{method="GET",route="/metrics/"} 1.7901661552378917e+09
+rag_http_request_duration_seconds_created{method="POST",route="/knowledge-bases/{knowledge_base_id}/search"} 1.7901661682345304e+09
+rag_http_request_duration_seconds_created{method="POST",route="/knowledge-bases/{knowledge_base_id}/visual-search"} 1.7901661729663072e+09
+rag_http_request_duration_seconds_created{method="POST",route="/knowledge-bases/{knowledge_base_id}/hybrid-search"} 1.7901661731836476e+09
+rag_http_request_duration_seconds_created{method="POST",route="/knowledge-bases/{knowledge_base_id}/answer"} 1.790166207784491e+09
+rag_http_request_duration_seconds_created{method="POST",route="/knowledge-bases/{kb_id}/conversations"} 1.790166209095672e+09
+rag_http_request_duration_seconds_created{method="POST",route="/conversations/{conversation_id}/messages"} 1.790166212729491e+09
+# HELP rag_http_in_flight_requests Number of requests currently running
+# TYPE rag_http_in_flight_requests gauge
+rag_http_in_flight_requests 2.0
+# HELP rag_stage_duration_seconds Duration of individual RAG stages
+# TYPE rag_stage_duration_seconds histogram
+rag_stage_duration_seconds_bucket{le="0.005",stage="lexical_retrieval"} 27.0
+rag_stage_duration_seconds_bucket{le="0.01",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.025",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.05",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.075",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.1",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.25",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.5",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.75",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="1.0",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="2.5",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="5.0",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="7.5",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="10.0",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="+Inf",stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_count{stage="lexical_retrieval"} 28.0
+rag_stage_duration_seconds_sum{stage="lexical_retrieval"} 0.08453057200017611
+rag_stage_duration_seconds_bucket{le="0.005",stage="semantic_retrieval"} 0.0
+rag_stage_duration_seconds_bucket{le="0.01",stage="semantic_retrieval"} 0.0
+rag_stage_duration_seconds_bucket{le="0.025",stage="semantic_retrieval"} 26.0
+rag_stage_duration_seconds_bucket{le="0.05",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.075",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.1",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.25",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.5",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.75",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="1.0",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="2.5",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="5.0",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="7.5",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="10.0",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="+Inf",stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_count{stage="semantic_retrieval"} 28.0
+rag_stage_duration_seconds_sum{stage="semantic_retrieval"} 0.5392871509997121
+rag_stage_duration_seconds_bucket{le="0.005",stage="visual_retrieval"} 0.0
+rag_stage_duration_seconds_bucket{le="0.01",stage="visual_retrieval"} 0.0
+rag_stage_duration_seconds_bucket{le="0.025",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.05",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.075",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.1",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.25",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.5",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="0.75",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="1.0",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="2.5",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="5.0",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="7.5",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="10.0",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_bucket{le="+Inf",stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_count{stage="visual_retrieval"} 28.0
+rag_stage_duration_seconds_sum{stage="visual_retrieval"} 0.39980884700003116
+rag_stage_duration_seconds_bucket{le="0.005",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="0.01",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="0.025",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="0.05",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="0.075",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="0.1",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="0.25",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="0.5",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="0.75",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="1.0",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="2.5",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="5.0",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="7.5",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="10.0",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_bucket{le="+Inf",stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_count{stage="rank_fusion"} 28.0
+rag_stage_duration_seconds_sum{stage="rank_fusion"} 0.002873462000025029
+rag_stage_duration_seconds_bucket{le="0.005",stage="reranking"} 0.0
+rag_stage_duration_seconds_bucket{le="0.01",stage="reranking"} 0.0
+rag_stage_duration_seconds_bucket{le="0.025",stage="reranking"} 0.0
+rag_stage_duration_seconds_bucket{le="0.05",stage="reranking"} 0.0
+rag_stage_duration_seconds_bucket{le="0.075",stage="reranking"} 0.0
+rag_stage_duration_seconds_bucket{le="0.1",stage="reranking"} 0.0
+rag_stage_duration_seconds_bucket{le="0.25",stage="reranking"} 3.0
+rag_stage_duration_seconds_bucket{le="0.5",stage="reranking"} 3.0
+rag_stage_duration_seconds_bucket{le="0.75",stage="reranking"} 4.0
+rag_stage_duration_seconds_bucket{le="1.0",stage="reranking"} 4.0
+rag_stage_duration_seconds_bucket{le="2.5",stage="reranking"} 4.0
+rag_stage_duration_seconds_bucket{le="5.0",stage="reranking"} 4.0
+rag_stage_duration_seconds_bucket{le="7.5",stage="reranking"} 4.0
+rag_stage_duration_seconds_bucket{le="10.0",stage="reranking"} 4.0
+rag_stage_duration_seconds_bucket{le="+Inf",stage="reranking"} 4.0
+rag_stage_duration_seconds_count{stage="reranking"} 4.0
+rag_stage_duration_seconds_sum{stage="reranking"} 1.0502966450001168
+rag_stage_duration_seconds_bucket{le="0.005",stage="context_selection"} 2.0
+rag_stage_duration_seconds_bucket{le="0.01",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="0.025",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="0.05",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="0.075",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="0.1",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="0.25",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="0.5",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="0.75",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="1.0",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="2.5",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="5.0",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="7.5",stage="context_selection"} 3.0
+rag_stage_duration_seconds_bucket{le="10.0",stage="context_selection"} 4.0
+rag_stage_duration_seconds_bucket{le="+Inf",stage="context_selection"} 4.0
+rag_stage_duration_seconds_count{stage="context_selection"} 4.0
+rag_stage_duration_seconds_sum{stage="context_selection"} 9.017689537000024
+# HELP rag_stage_duration_seconds_created Duration of individual RAG stages
+# TYPE rag_stage_duration_seconds_created gauge
+rag_stage_duration_seconds_created{stage="lexical_retrieval"} 1.7901661731473126e+09
+rag_stage_duration_seconds_created{stage="semantic_retrieval"} 1.7901661731671154e+09
+rag_stage_duration_seconds_created{stage="visual_retrieval"} 1.7901661731822603e+09
+rag_stage_duration_seconds_created{stage="rank_fusion"} 1.7901661731825893e+09
+rag_stage_duration_seconds_created{stage="reranking"} 1.790166183046185e+09
+rag_stage_duration_seconds_created{stage="context_selection"} 1.7901661920516238e+09
+# HELP rag_stage_errors_total Number of RAG stage errors
+# TYPE rag_stage_errors_total counter
+# HELP rag_retrieval_result_count Number of retrieval results
+# TYPE rag_retrieval_result_count histogram
+rag_retrieval_result_count_bucket{channel="lexical",le="0.005"} 15.0
+rag_retrieval_result_count_bucket{channel="lexical",le="0.01"} 15.0
+rag_retrieval_result_count_bucket{channel="lexical",le="0.025"} 15.0
+rag_retrieval_result_count_bucket{channel="lexical",le="0.05"} 15.0
+rag_retrieval_result_count_bucket{channel="lexical",le="0.075"} 15.0
+rag_retrieval_result_count_bucket{channel="lexical",le="0.1"} 15.0
+rag_retrieval_result_count_bucket{channel="lexical",le="0.25"} 15.0
+rag_retrieval_result_count_bucket{channel="lexical",le="0.5"} 15.0
+rag_retrieval_result_count_bucket{channel="lexical",le="0.75"} 15.0
+rag_retrieval_result_count_bucket{channel="lexical",le="1.0"} 23.0
+rag_retrieval_result_count_bucket{channel="lexical",le="2.5"} 26.0
+rag_retrieval_result_count_bucket{channel="lexical",le="5.0"} 28.0
+rag_retrieval_result_count_bucket{channel="lexical",le="7.5"} 28.0
+rag_retrieval_result_count_bucket{channel="lexical",le="10.0"} 28.0
+rag_retrieval_result_count_bucket{channel="lexical",le="+Inf"} 28.0
+rag_retrieval_result_count_count{channel="lexical"} 28.0
+rag_retrieval_result_count_sum{channel="lexical"} 22.0
+rag_retrieval_result_count_bucket{channel="semantic",le="0.005"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="0.01"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="0.025"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="0.05"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="0.075"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="0.1"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="0.25"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="0.5"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="0.75"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="1.0"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="2.5"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="5.0"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="7.5"} 0.0
+rag_retrieval_result_count_bucket{channel="semantic",le="10.0"} 28.0
+rag_retrieval_result_count_bucket{channel="semantic",le="+Inf"} 28.0
+rag_retrieval_result_count_count{channel="semantic"} 28.0
+rag_retrieval_result_count_sum{channel="semantic"} 224.0
+rag_retrieval_result_count_bucket{channel="visual",le="0.005"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="0.01"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="0.025"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="0.05"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="0.075"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="0.1"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="0.25"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="0.5"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="0.75"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="1.0"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="2.5"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="5.0"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="7.5"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="10.0"} 0.0
+rag_retrieval_result_count_bucket{channel="visual",le="+Inf"} 28.0
+rag_retrieval_result_count_count{channel="visual"} 28.0
+rag_retrieval_result_count_sum{channel="visual"} 336.0
+# HELP rag_retrieval_result_count_created Number of retrieval results
+# TYPE rag_retrieval_result_count_created gauge
+rag_retrieval_result_count_created{channel="lexical"} 1.7901661731475065e+09
+rag_retrieval_result_count_created{channel="semantic"} 1.7901661731673772e+09
+rag_retrieval_result_count_created{channel="visual"} 1.790166173182444e+09
+# HELP rag_answer_outcomes_total Final answer outcomes
+# TYPE rag_answer_outcomes_total counter
+rag_answer_outcomes_total{outcome="answerable"} 2.0
+rag_answer_outcomes_total{outcome="refused"} 2.0
+# HELP rag_answer_outcomes_created Final answer outcomes
+# TYPE rag_answer_outcomes_created gauge
+rag_answer_outcomes_created{outcome="answerable"} 1.79016620778226e+09
+rag_answer_outcomes_created{outcome="refused"} 1.7901662090343115e+09
+# HELP rag_grounding_results_total Grounding verification results
+# TYPE rag_grounding_results_total counter
+rag_grounding_results_total{result="passed"} 2.0
+rag_grounding_results_total{result="retry"} 1.0
+rag_grounding_results_total{result="failed"} 1.0
+# HELP rag_grounding_results_created Grounding verification results
+# TYPE rag_grounding_results_created gauge
+rag_grounding_results_created{result="passed"} 1.7901662077822733e+09
+rag_grounding_results_created{result="retry"} 1.7901662174892101e+09
+rag_grounding_results_created{result="failed"} 1.7901662206886559e+09
+# HELP rag_ollama_duration_seconds Total Ollama request duration
+# TYPE rag_ollama_duration_seconds histogram
+rag_ollama_duration_seconds_bucket{le="0.005",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.01",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.025",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.05",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.075",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.1",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.25",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.5",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.75",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_duration_seconds_bucket{le="1.0",model="qwen3:8b",operation="answer_generation"} 2.0
+rag_ollama_duration_seconds_bucket{le="2.5",model="qwen3:8b",operation="answer_generation"} 4.0
+rag_ollama_duration_seconds_bucket{le="5.0",model="qwen3:8b",operation="answer_generation"} 4.0
+rag_ollama_duration_seconds_bucket{le="7.5",model="qwen3:8b",operation="answer_generation"} 4.0
+rag_ollama_duration_seconds_bucket{le="10.0",model="qwen3:8b",operation="answer_generation"} 4.0
+rag_ollama_duration_seconds_bucket{le="+Inf",model="qwen3:8b",operation="answer_generation"} 5.0
+rag_ollama_duration_seconds_count{model="qwen3:8b",operation="answer_generation"} 5.0
+rag_ollama_duration_seconds_sum{model="qwen3:8b",operation="answer_generation"} 18.243403
+rag_ollama_duration_seconds_bucket{le="0.005",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.01",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.025",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.05",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.075",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.1",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.25",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.5",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.75",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_duration_seconds_bucket{le="1.0",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_duration_seconds_bucket{le="2.5",model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_duration_seconds_bucket{le="5.0",model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_duration_seconds_bucket{le="7.5",model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_duration_seconds_bucket{le="10.0",model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_duration_seconds_bucket{le="+Inf",model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_duration_seconds_count{model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_duration_seconds_sum{model="qwen3:8b",operation="grounding_verification"} 6.922477699999999
+rag_ollama_duration_seconds_bucket{le="0.005",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.01",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.025",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.05",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.075",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.1",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.25",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.5",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_duration_seconds_bucket{le="0.75",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_duration_seconds_bucket{le="1.0",model="qwen3:8b",operation="query_rewrite"} 1.0
+rag_ollama_duration_seconds_bucket{le="2.5",model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_duration_seconds_bucket{le="5.0",model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_duration_seconds_bucket{le="7.5",model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_duration_seconds_bucket{le="10.0",model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_duration_seconds_bucket{le="+Inf",model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_duration_seconds_count{model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_duration_seconds_sum{model="qwen3:8b",operation="query_rewrite"} 2.4087766999999998
+# HELP rag_ollama_duration_seconds_created Total Ollama request duration
+# TYPE rag_ollama_duration_seconds_created gauge
+rag_ollama_duration_seconds_created{model="qwen3:8b",operation="answer_generation"} 1.790166206274983e+09
+rag_ollama_duration_seconds_created{model="qwen3:8b",operation="grounding_verification"} 1.790166207781667e+09
+rag_ollama_duration_seconds_created{model="qwen3:8b",operation="query_rewrite"} 1.7901662100373769e+09
+# HELP rag_ollama_load_duration_seconds Ollama model load duration
+# TYPE rag_ollama_load_duration_seconds histogram
+rag_ollama_load_duration_seconds_bucket{le="0.005",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="0.01",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="0.025",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="0.05",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="0.075",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="0.1",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="0.25",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="0.5",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="0.75",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="1.0",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="2.5",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="5.0",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="7.5",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="10.0",model="qwen3:8b"} 10.0
+rag_ollama_load_duration_seconds_bucket{le="+Inf",model="qwen3:8b"} 11.0
+rag_ollama_load_duration_seconds_count{model="qwen3:8b"} 11.0
+rag_ollama_load_duration_seconds_sum{model="qwen3:8b"} 12.757033799999997
+# HELP rag_ollama_load_duration_seconds_created Ollama model load duration
+# TYPE rag_ollama_load_duration_seconds_created gauge
+rag_ollama_load_duration_seconds_created{model="qwen3:8b"} 1.7901662062750802e+09
+# HELP rag_ollama_prompt_tokens Number of Ollama input tokens
+# TYPE rag_ollama_prompt_tokens histogram
+rag_ollama_prompt_tokens_bucket{le="0.005",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.01",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.025",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.05",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.075",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.1",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.25",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.5",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.75",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="1.0",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="2.5",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="5.0",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="7.5",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="10.0",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_prompt_tokens_bucket{le="+Inf",model="qwen3:8b",operation="answer_generation"} 5.0
+rag_ollama_prompt_tokens_count{model="qwen3:8b",operation="answer_generation"} 5.0
+rag_ollama_prompt_tokens_sum{model="qwen3:8b",operation="answer_generation"} 6574.0
+rag_ollama_prompt_tokens_bucket{le="0.005",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.01",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.025",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.05",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.075",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.1",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.25",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.5",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.75",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="1.0",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="2.5",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="5.0",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="7.5",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="10.0",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_prompt_tokens_bucket{le="+Inf",model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_prompt_tokens_count{model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_prompt_tokens_sum{model="qwen3:8b",operation="grounding_verification"} 3598.0
+rag_ollama_prompt_tokens_bucket{le="0.005",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.01",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.025",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.05",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.075",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.1",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.25",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.5",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="0.75",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="1.0",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="2.5",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="5.0",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="7.5",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="10.0",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_prompt_tokens_bucket{le="+Inf",model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_prompt_tokens_count{model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_prompt_tokens_sum{model="qwen3:8b",operation="query_rewrite"} 588.0
+# HELP rag_ollama_prompt_tokens_created Number of Ollama input tokens
+# TYPE rag_ollama_prompt_tokens_created gauge
+rag_ollama_prompt_tokens_created{model="qwen3:8b",operation="answer_generation"} 1.7901662062752333e+09
+rag_ollama_prompt_tokens_created{model="qwen3:8b",operation="grounding_verification"} 1.790166207781723e+09
+rag_ollama_prompt_tokens_created{model="qwen3:8b",operation="query_rewrite"} 1.7901662100374494e+09
+# HELP rag_ollama_output_tokens Number of Ollama generated tokens
+# TYPE rag_ollama_output_tokens histogram
+rag_ollama_output_tokens_bucket{le="0.005",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="0.01",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="0.025",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="0.05",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="0.075",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="0.1",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="0.25",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="0.5",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="0.75",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="1.0",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="2.5",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="5.0",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="7.5",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="10.0",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_output_tokens_bucket{le="+Inf",model="qwen3:8b",operation="answer_generation"} 5.0
+rag_ollama_output_tokens_count{model="qwen3:8b",operation="answer_generation"} 5.0
+rag_ollama_output_tokens_sum{model="qwen3:8b",operation="answer_generation"} 366.0
+rag_ollama_output_tokens_bucket{le="0.005",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="0.01",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="0.025",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="0.05",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="0.075",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="0.1",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="0.25",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="0.5",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="0.75",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="1.0",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="2.5",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="5.0",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="7.5",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="10.0",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_output_tokens_bucket{le="+Inf",model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_output_tokens_count{model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_output_tokens_sum{model="qwen3:8b",operation="grounding_verification"} 543.0
+rag_ollama_output_tokens_bucket{le="0.005",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="0.01",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="0.025",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="0.05",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="0.075",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="0.1",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="0.25",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="0.5",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="0.75",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="1.0",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="2.5",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="5.0",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="7.5",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="10.0",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_output_tokens_bucket{le="+Inf",model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_output_tokens_count{model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_output_tokens_sum{model="qwen3:8b",operation="query_rewrite"} 158.0
+# HELP rag_ollama_output_tokens_created Number of Ollama generated tokens
+# TYPE rag_ollama_output_tokens_created gauge
+rag_ollama_output_tokens_created{model="qwen3:8b",operation="answer_generation"} 1.7901662062753394e+09
+rag_ollama_output_tokens_created{model="qwen3:8b",operation="grounding_verification"} 1.7901662077818167e+09
+rag_ollama_output_tokens_created{model="qwen3:8b",operation="query_rewrite"} 1.7901662100374856e+09
+# HELP rag_ollama_tokens_per_second Ollama generation speed
+# TYPE rag_ollama_tokens_per_second histogram
+rag_ollama_tokens_per_second_bucket{le="0.005",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.01",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.025",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.05",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.075",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.1",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.25",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.5",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.75",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="1.0",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="2.5",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="5.0",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="7.5",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="10.0",model="qwen3:8b",operation="answer_generation"} 0.0
+rag_ollama_tokens_per_second_bucket{le="+Inf",model="qwen3:8b",operation="answer_generation"} 5.0
+rag_ollama_tokens_per_second_count{model="qwen3:8b",operation="answer_generation"} 5.0
+rag_ollama_tokens_per_second_sum{model="qwen3:8b",operation="answer_generation"} 489.7086711639369
+rag_ollama_tokens_per_second_bucket{le="0.005",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.01",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.025",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.05",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.075",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.1",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.25",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.5",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.75",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="1.0",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="2.5",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="5.0",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="7.5",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="10.0",model="qwen3:8b",operation="grounding_verification"} 0.0
+rag_ollama_tokens_per_second_bucket{le="+Inf",model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_tokens_per_second_count{model="qwen3:8b",operation="grounding_verification"} 4.0
+rag_ollama_tokens_per_second_sum{model="qwen3:8b",operation="grounding_verification"} 377.9797433333349
+rag_ollama_tokens_per_second_bucket{le="0.005",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.01",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.025",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.05",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.075",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.1",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.25",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.5",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="0.75",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="1.0",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="2.5",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="5.0",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="7.5",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="10.0",model="qwen3:8b",operation="query_rewrite"} 0.0
+rag_ollama_tokens_per_second_bucket{le="+Inf",model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_tokens_per_second_count{model="qwen3:8b",operation="query_rewrite"} 2.0
+rag_ollama_tokens_per_second_sum{model="qwen3:8b",operation="query_rewrite"} 148.7361501185585
+# HELP rag_ollama_tokens_per_second_created Ollama generation speed
+# TYPE rag_ollama_tokens_per_second_created gauge
+rag_ollama_tokens_per_second_created{model="qwen3:8b",operation="answer_generation"} 1.7901662062754042e+09
+rag_ollama_tokens_per_second_created{model="qwen3:8b",operation="grounding_verification"} 1.7901662077819502e+09
+rag_ollama_tokens_per_second_created{model="qwen3:8b",operation="query_rewrite"} 1.7901662100375164e+09

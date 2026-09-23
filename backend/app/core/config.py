@@ -187,6 +187,26 @@ class Settings(BaseSettings):
         "http://localhost:5173"
     )
 
+    # -------------------------
+    # Security
+    # -------------------------
+
+    trusted_hosts: str = (
+        "localhost,127.0.0.1,testserver"
+    )
+
+    enable_api_docs: bool = True
+
+    security_headers_enabled: bool = True
+
+    max_upload_bytes: int = (
+        50 * 1024 * 1024
+    )
+
+    allowed_upload_extensions: str = (
+        ".pdf,.md,.txt"
+    )
+
 @lru_cache
 def get_settings() -> Settings:
     return Settings()

@@ -29,6 +29,11 @@ from app.services.file_storage import (
     UnsupportedFileTypeError as UnsupportedFileTypeError,
 )
 
+from app.security.uploads import (
+    validate_filename,
+    validate_file_size,
+)
+
 logger = logging.getLogger(
     __name__
 )
@@ -102,7 +107,9 @@ async def prepare_document_upload(
         KnowledgeBase,
         knowledge_base_id,
     )
-
+    validate_filename(
+        upload.filename
+    )
     if knowledge_base is None:
         raise KnowledgeBaseNotFoundError
 
@@ -187,6 +194,10 @@ async def prepare_document_upload(
             ),
             status="uploaded",
             document_metadata={},
+        )
+        file_size_bytes = staged.size_bytes
+        validate_file_size(
+            file_size_bytes
         )
 
         staged = None

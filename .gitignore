@@ -45,3 +45,5 @@ documents/processed/*
 # Evaluation results
 evaluation/results/*
 !evaluation/results/.gitkeep
+!evaluation/results/final/
+!evaluation/results/final/**

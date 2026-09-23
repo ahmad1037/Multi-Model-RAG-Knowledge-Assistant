@@ -1,0 +1,127 @@
+# HELP python_gc_objects_collected_total Objects collected during gc
+# TYPE python_gc_objects_collected_total counter
+python_gc_objects_collected_total{generation="0"} 3525.0
+python_gc_objects_collected_total{generation="1"} 557.0
+python_gc_objects_collected_total{generation="2"} 996.0
+# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC
+# TYPE python_gc_objects_uncollectable_total counter
+python_gc_objects_uncollectable_total{generation="0"} 0.0
+python_gc_objects_uncollectable_total{generation="1"} 0.0
+python_gc_objects_uncollectable_total{generation="2"} 0.0
+# HELP python_gc_collections_total Number of times this generation was collected
+# TYPE python_gc_collections_total counter
+python_gc_collections_total{generation="0"} 1254.0
+python_gc_collections_total{generation="1"} 113.0
+python_gc_collections_total{generation="2"} 7.0
+# HELP python_info Python platform information
+# TYPE python_info gauge
+python_info{implementation="CPython",major="3",minor="12",patchlevel="14",version="3.12.14"} 1.0
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes 5.709037568e+09
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 8.86759424e+08
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1.79016612006e+09
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total 21.59
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds 16.0
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds 1.048576e+06
+# HELP rag_http_requests_total Total number of HTTP requests
+# TYPE rag_http_requests_total counter
+rag_http_requests_total{method="GET",route="/docs",status_class="2xx"} 10.0
+rag_http_requests_total{method="GET",route="/knowledge-bases",status_class="2xx"} 2.0
+rag_http_requests_total{method="GET",route="/knowledge-bases/{knowledge_base_id}/documents",status_class="2xx"} 6.0
+# HELP rag_http_requests_created Total number of HTTP requests
+# TYPE rag_http_requests_created gauge
+rag_http_requests_created{method="GET",route="/docs",status_class="2xx"} 1.790166141663368e+09
+rag_http_requests_created{method="GET",route="/knowledge-bases",status_class="2xx"} 1.7901661551972055e+09
+rag_http_requests_created{method="GET",route="/knowledge-bases/{knowledge_base_id}/documents",status_class="2xx"} 1.7901661552188451e+09
+# HELP rag_http_request_duration_seconds HTTP request duration
+# TYPE rag_http_request_duration_seconds histogram
+rag_http_request_duration_seconds_bucket{le="0.005",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_count{method="GET",route="/docs"} 10.0
+rag_http_request_duration_seconds_sum{method="GET",route="/docs"} 0.005400205000000824
+rag_http_request_duration_seconds_bucket{le="0.005",method="GET",route="/knowledge-bases"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="GET",route="/knowledge-bases"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="GET",route="/knowledge-bases"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="GET",route="/knowledge-bases"} 0.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_count{method="GET",route="/knowledge-bases"} 2.0
+rag_http_request_duration_seconds_sum{method="GET",route="/knowledge-bases"} 0.11442560600005436
+rag_http_request_duration_seconds_bucket{le="0.005",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 4.0
+rag_http_request_duration_seconds_bucket{le="0.01",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 4.0
+rag_http_request_duration_seconds_bucket{le="0.025",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.05",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.075",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.1",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.25",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.5",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="0.75",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="1.0",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="2.5",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="5.0",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="7.5",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="10.0",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_bucket{le="+Inf",method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_count{method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 6.0
+rag_http_request_duration_seconds_sum{method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 0.04972893699994074
+# HELP rag_http_request_duration_seconds_created HTTP request duration
+# TYPE rag_http_request_duration_seconds_created gauge
+rag_http_request_duration_seconds_created{method="GET",route="/docs"} 1.790166141663392e+09
+rag_http_request_duration_seconds_created{method="GET",route="/knowledge-bases"} 1.7901661551972382e+09
+rag_http_request_duration_seconds_created{method="GET",route="/knowledge-bases/{knowledge_base_id}/documents"} 1.7901661552188706e+09
+# HELP rag_http_in_flight_requests Number of requests currently running
+# TYPE rag_http_in_flight_requests gauge
+rag_http_in_flight_requests 2.0
+# HELP rag_stage_duration_seconds Duration of individual RAG stages
+# TYPE rag_stage_duration_seconds histogram
+# HELP rag_stage_errors_total Number of RAG stage errors
+# TYPE rag_stage_errors_total counter
+# HELP rag_retrieval_result_count Number of retrieval results
+# TYPE rag_retrieval_result_count histogram
+# HELP rag_answer_outcomes_total Final answer outcomes
+# TYPE rag_answer_outcomes_total counter
+# HELP rag_grounding_results_total Grounding verification results
+# TYPE rag_grounding_results_total counter
+# HELP rag_ollama_duration_seconds Total Ollama request duration
+# TYPE rag_ollama_duration_seconds histogram
+# HELP rag_ollama_load_duration_seconds Ollama model load duration
+# TYPE rag_ollama_load_duration_seconds histogram
+# HELP rag_ollama_prompt_tokens Number of Ollama input tokens
+# TYPE rag_ollama_prompt_tokens histogram
+# HELP rag_ollama_output_tokens Number of Ollama generated tokens
+# TYPE rag_ollama_output_tokens histogram
+# HELP rag_ollama_tokens_per_second Ollama generation speed
+# TYPE rag_ollama_tokens_per_second histogram

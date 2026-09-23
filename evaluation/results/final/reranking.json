@@ -1,0 +1,72 @@
+{
+  "run_id": "a2d0631f-c256-4826-a557-2b56f36fd189",
+  "evaluation_type": "reranking",
+  "created_at": "2026-09-23T13:55:06.642213+00:00",
+  "configuration": {
+    "text_embedding_model": "BAAI/bge-small-en-v1.5",
+    "clip_model_name": "ViT-B-32",
+    "clip_pretrained": "openai",
+    "reranker_model": "BAAI/bge-reranker-base",
+    "vlm_model": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "generation_model": "qwen3:8b",
+    "verification_model": "qwen3:8b",
+    "conversation_rewrite_model": "qwen3:8b",
+    "generation_temperature": 0.0,
+    "generation_prompt_version": "grounded-answer-v1",
+    "max_grounding_retries": 1,
+    "text_embedding_device": "cuda",
+    "clip_device": "cuda",
+    "reranker_device": "cuda",
+    "hnsw_ef_search": 100,
+    "clip_hnsw_ef_search": 100,
+    "context_max_tokens": 1800,
+    "context_max_items": 8,
+    "context_max_visual_items": 3,
+    "conversation_recent_messages": 8,
+    "conversation_summary_trigger": 12,
+    "deployment_mode": "local_full",
+    "source_run": "20260923T122235Z",
+    "benchmark_started_at": "2026-09-23T12:22:35.034491+00:00",
+    "benchmark_finished_at": "2026-09-23T12:23:40.738896+00:00",
+    "configuration_provenance": "Runtime snapshot captured after the run; not a contemporaneous configuration attestation.",
+    "evidence": "evidence/raw.json",
+    "evidence_sha256": "4dc341b3bd615151b64fedb1a201c21a7058d30181cfaec3b3f375e2bc52faac",
+    "dataset_sha256": {
+      "chunking": "ff93c5711aa473ba4abe059df8ccf33f8d084b4148d5db96d56ec9620a287718",
+      "visual": "2b4f4498aceba5f15873f9ac97e3e1baebf6ea38b828886cabcd3f42c7060afe",
+      "hybrid": "192070b28b0270fc62da7b6b026ddf4b231f5a67f5fee2182045c451439b702e",
+      "generation": "fba00b6c797c85dc7b37e9ff27ec167cd4c568fc20edc9fed78b4e4a650462d5",
+      "conversation": "492d7a555dee2cb878cb86491e6a142896ba93a6b9d11fb229b119ebaf52e088"
+    },
+    "execution": "One serial pass; no excluded warmup; model loading included; no concurrent load test.",
+    "generation_sample_size": 2
+  },
+  "metrics": {
+    "status": "not_measured",
+    "recall_at_1": {
+      "value": null,
+      "status": "not_measured",
+      "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied. No reranking ablation was captured."
+    },
+    "recall_at_3": {
+      "value": null,
+      "status": "not_measured",
+      "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied. No reranking ablation was captured."
+    },
+    "recall_at_5": {
+      "value": null,
+      "status": "not_measured",
+      "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied. No reranking ablation was captured."
+    },
+    "mrr": {
+      "value": null,
+      "status": "not_measured",
+      "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied. No reranking ablation was captured."
+    },
+    "ndcg_at_5": {
+      "value": null,
+      "status": "not_measured",
+      "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied. No reranking ablation was captured."
+    }
+  }
+}

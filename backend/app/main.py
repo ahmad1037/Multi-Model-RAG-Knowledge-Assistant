@@ -36,18 +36,65 @@ from app.observability.logging import (
 from app.api.routes.processing_jobs import (
     router as processing_jobs_router,
 )
-from fastapi.middleware.cors import (
-    CORSMiddleware,
+from fastapi.middleware.trustedhost import (
+    TrustedHostMiddleware,
+)
+from app.middleware.security import (
+    security_headers_middleware,
 )
 configure_logging()
 app = FastAPI(
-    title="Multimodal RAG Knowledge Assistant API",
-    description=(
-        "Backend API for document ingestion, multimodal retrieval, "
-        "RAG generation, conversations, and evaluation."
+
+    title=(
+        "Multimodal RAG "
+        "Knowledge Assistant"
     ),
-    version="0.1.0",
+
+    docs_url=(
+        "/docs"
+        if settings.enable_api_docs
+        else None
+    ),
+
+    redoc_url=(
+        "/redoc"
+        if settings.enable_api_docs
+        else None
+    ),
+
+    openapi_url=(
+        "/openapi.json"
+        if settings.enable_api_docs
+        else None
+    ),
 )
+
+trusted_hosts = [
+
+    host.strip()
+
+    for host
+    in settings
+    .trusted_hosts
+    .split(",")
+
+    if host.strip()
+]
+
+
+app.add_middleware(
+
+    TrustedHostMiddleware,
+
+    allowed_hosts=(
+        trusted_hosts
+    ),
+)
+
+app.middleware("http")(
+    security_headers_middleware
+)
+
 allowed_origins = [
 
     origin.strip()
@@ -152,6 +199,7 @@ app.include_router(
     health_router,
     prefix="/api/v1",
 )
+
 
 
 

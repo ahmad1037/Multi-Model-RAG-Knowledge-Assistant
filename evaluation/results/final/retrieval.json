@@ -1,0 +1,319 @@
+{
+  "run_id": "5659db69-2805-4755-87c9-aa5004f99617",
+  "evaluation_type": "retrieval",
+  "created_at": "2026-09-23T13:55:06.641211+00:00",
+  "configuration": {
+    "text_embedding_model": "BAAI/bge-small-en-v1.5",
+    "clip_model_name": "ViT-B-32",
+    "clip_pretrained": "openai",
+    "reranker_model": "BAAI/bge-reranker-base",
+    "vlm_model": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "generation_model": "qwen3:8b",
+    "verification_model": "qwen3:8b",
+    "conversation_rewrite_model": "qwen3:8b",
+    "generation_temperature": 0.0,
+    "generation_prompt_version": "grounded-answer-v1",
+    "max_grounding_retries": 1,
+    "text_embedding_device": "cuda",
+    "clip_device": "cuda",
+    "reranker_device": "cuda",
+    "hnsw_ef_search": 100,
+    "clip_hnsw_ef_search": 100,
+    "context_max_tokens": 1800,
+    "context_max_items": 8,
+    "context_max_visual_items": 3,
+    "conversation_recent_messages": 8,
+    "conversation_summary_trigger": 12,
+    "deployment_mode": "local_full",
+    "source_run": "20260923T122235Z",
+    "benchmark_started_at": "2026-09-23T12:22:35.034491+00:00",
+    "benchmark_finished_at": "2026-09-23T12:23:40.738896+00:00",
+    "configuration_provenance": "Runtime snapshot captured after the run; not a contemporaneous configuration attestation.",
+    "evidence": "evidence/raw.json",
+    "evidence_sha256": "4dc341b3bd615151b64fedb1a201c21a7058d30181cfaec3b3f375e2bc52faac",
+    "dataset_sha256": {
+      "chunking": "ff93c5711aa473ba4abe059df8ccf33f8d084b4148d5db96d56ec9620a287718",
+      "visual": "2b4f4498aceba5f15873f9ac97e3e1baebf6ea38b828886cabcd3f42c7060afe",
+      "hybrid": "192070b28b0270fc62da7b6b026ddf4b231f5a67f5fee2182045c451439b702e",
+      "generation": "fba00b6c797c85dc7b37e9ff27ec167cd4c568fc20edc9fed78b4e4a650462d5",
+      "conversation": "492d7a555dee2cb878cb86491e6a142896ba93a6b9d11fb229b119ebaf52e088"
+    },
+    "execution": "One serial pass; no excluded warmup; model loading included; no concurrent load test.",
+    "generation_sample_size": 2
+  },
+  "metrics": {
+    "status": "ground_truth_mismatch",
+    "pipelines": [
+      {
+        "pipeline": "BGE semantic",
+        "recall_at_1": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "recall_at_3": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "recall_at_5": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "mrr": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "ndcg_at_5": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        }
+      },
+      {
+        "pipeline": "Semantic + lexical",
+        "recall_at_1": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "No comparable ablation was run; Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "recall_at_3": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "No comparable ablation was run; Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "recall_at_5": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "No comparable ablation was run; Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "mrr": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "No comparable ablation was run; Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "ndcg_at_5": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "No comparable ablation was run; Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        }
+      },
+      {
+        "pipeline": "Hybrid + CLIP",
+        "recall_at_1": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Implemented hybrid already uses RRF; no separate unfused CLIP pipeline benchmark exists."
+        },
+        "recall_at_3": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Implemented hybrid already uses RRF; no separate unfused CLIP pipeline benchmark exists."
+        },
+        "recall_at_5": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Implemented hybrid already uses RRF; no separate unfused CLIP pipeline benchmark exists."
+        },
+        "mrr": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Implemented hybrid already uses RRF; no separate unfused CLIP pipeline benchmark exists."
+        },
+        "ndcg_at_5": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Implemented hybrid already uses RRF; no separate unfused CLIP pipeline benchmark exists."
+        }
+      },
+      {
+        "pipeline": "Hybrid + RRF",
+        "recall_at_1": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "recall_at_3": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "recall_at_5": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "mrr": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "ndcg_at_5": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        }
+      },
+      {
+        "pipeline": "Hybrid + reranker",
+        "recall_at_1": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "No reranking quality benchmark was run; Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "recall_at_3": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "No reranking quality benchmark was run; Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "recall_at_5": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "No reranking quality benchmark was run; Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "mrr": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "No reranking quality benchmark was run; Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        },
+        "ndcg_at_5": {
+          "value": null,
+          "status": "not_measured",
+          "reason": "No reranking quality benchmark was run; Expected document filenames are absent from the observed retail KB; no unreviewed filename aliases were applied."
+        }
+      }
+    ],
+    "runtime_success": {
+      "chunking": {
+        "value": 1.0,
+        "numerator": 12,
+        "denominator": 12,
+        "definition": "HTTP 200 responses, not quality scores"
+      },
+      "visual": {
+        "value": 1.0,
+        "numerator": 3,
+        "denominator": 3,
+        "definition": "HTTP 200 responses, not quality scores"
+      },
+      "hybrid": {
+        "value": 1.0,
+        "numerator": 24,
+        "denominator": 24,
+        "definition": "HTTP 200 responses, not quality scores"
+      }
+    },
+    "missing_labels": {
+      "chunking": [
+        "retail-model-comparison-001",
+        "retail-model-comparison-002",
+        "retail-model-comparison-003",
+        "retail-model-comparison-004",
+        "retail-model-comparison-005",
+        "retail-model-comparison-006",
+        "retail-model-comparison-007",
+        "retail-model-comparison-008",
+        "retail-model-comparison-009",
+        "retail-model-comparison-010",
+        "retail-model-comparison-011",
+        "retail-model-comparison-012"
+      ],
+      "visual": [
+        "visual-001",
+        "visual-002",
+        "visual-003"
+      ],
+      "hybrid": [
+        "hybrid-text-001",
+        "hybrid-text-002",
+        "hybrid-mixed-003",
+        "hybrid-text-004",
+        "hybrid-text-005",
+        "hybrid-mixed-006",
+        "hybrid-visual-007",
+        "hybrid-mixed-008",
+        "hybrid-text-009",
+        "hybrid-mixed-010",
+        "hybrid-visual-011",
+        "hybrid-text-012",
+        "hybrid-visual-013",
+        "hybrid-mixed-014",
+        "hybrid-text-015",
+        "hybrid-text-016",
+        "hybrid-visual-017",
+        "hybrid-mixed-018",
+        "hybrid-text-019",
+        "hybrid-visual-020",
+        "hybrid-text-021",
+        "hybrid-text-022",
+        "hybrid-visual-023",
+        "hybrid-mixed-024"
+      ],
+      "generation": [
+        "gen-001"
+      ],
+      "conversation": [
+        "conv-001"
+      ]
+    },
+    "corpus": {
+      "sentiment-analysis": [
+        {
+          "id": "7f4aafa1-e40d-4428-a387-1e64bd96127b",
+          "knowledge_base_id": "8d8f8784-e7c6-44d9-9654-3290c3898432",
+          "original_filename": "classic_ml_vs_finetuned_distilbert_explained.pdf",
+          "media_type": "application/pdf",
+          "file_size_bytes": 93197,
+          "page_count": 1,
+          "status": "ready",
+          "error_message": null,
+          "created_at": "2026-09-16T10:54:32.273244Z",
+          "updated_at": "2026-09-16T10:54:52.136811Z"
+        },
+        {
+          "id": "454a64a4-a7fc-44ba-9789-59448a4a1366",
+          "knowledge_base_id": "8d8f8784-e7c6-44d9-9654-3290c3898432",
+          "original_filename": "classic_ml_vs_Fine_tuned.pdf",
+          "media_type": "application/pdf",
+          "file_size_bytes": 18125,
+          "page_count": 1,
+          "status": "processing_failed",
+          "error_message": "Chunking produced no text chunks.",
+          "created_at": "2026-09-16T10:47:44.485304Z",
+          "updated_at": "2026-09-16T10:49:16.384757Z"
+        }
+      ],
+      "multimodal-rag-demo": [
+        {
+          "id": "73d5df08-bb11-4794-b14b-3302e050faa1",
+          "knowledge_base_id": "d19e04b4-f6c1-4e3a-bd8e-46c69e467cc6",
+          "original_filename": "retail_sales_forecasting_analysis.pdf",
+          "media_type": "application/pdf",
+          "file_size_bytes": 451139,
+          "page_count": 9,
+          "status": "ready",
+          "error_message": null,
+          "created_at": "2026-09-16T10:07:40.718958Z",
+          "updated_at": "2026-09-16T10:07:42.055313Z"
+        }
+      ],
+      "retail-sales-forecasting": [
+        {
+          "id": "ac9f5ffa-abe6-4842-8b79-6532dc7a209b",
+          "knowledge_base_id": "351b627a-4fb2-4419-a26b-9e576d3fa449",
+          "original_filename": "retail_sales_forecasting_analysis.pdf",
+          "media_type": "application/pdf",
+          "file_size_bytes": 451139,
+          "page_count": 9,
+          "status": "ready",
+          "error_message": null,
+          "created_at": "2026-09-16T10:00:12.276617Z",
+          "updated_at": "2026-09-16T10:00:39.902422Z"
+        }
+      ]
+    },
+    "metric_caveat": "Legacy recall_at_k is any-hit success; page/chunk relevance judgments are needed for actual recall and nDCG."
+  }
+}

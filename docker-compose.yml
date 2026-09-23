@@ -65,7 +65,8 @@ services:
       GENERATION_TEMPERATURE: ${GENERATION_TEMPERATURE:-0}
       MAX_GROUNDING_RETRIES: ${MAX_GROUNDING_RETRIES:-1}
       HF_TOKEN: ${HF_TOKEN}
-      HF_HOME: /root/.cache/huggingface
+      HF_HOME: /home/appuser/.cache/huggingface
+      UV_CACHE_DIR: /tmp/uv-cache
       HF_HUB_DOWNLOAD_TIMEOUT: "400"
     deploy:
       resources:
@@ -78,7 +79,7 @@ services:
   
     volumes:
     - ./storage:/storage
-    - huggingface_cache:/root/.cache/huggingface
+    - huggingface_cache:/home/appuser/.cache/huggingface
 
 
     ports:
@@ -180,7 +181,8 @@ services:
       TEXT_EMBEDDING_DEVICE: ${TEXT_EMBEDDING_DEVICE:-cuda}
       CLIP_DEVICE: ${CLIP_DEVICE:-cuda}
       RERANKER_DEVICE: ${RERANKER_DEVICE:-cuda}
-      HF_HOME: /root/.cache/huggingface
+      HF_HOME: /home/appuser/.cache/huggingface
+      UV_CACHE_DIR: /tmp/uv-cache
       DATABASE_URL: 
         postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
 
@@ -206,7 +208,7 @@ services:
 
       - ./storage:/storage
 
-      - huggingface_cache:/root/.cache/huggingface
+      - huggingface_cache:/home/appuser/.cache/huggingface
 
     depends_on:
 
