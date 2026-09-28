@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 $runtime = Join-Path (Split-Path -Parent $PSScriptRoot) '.local-bridge'
 $tunnelLog = Get-Content -Raw (Join-Path $runtime 'tunnel-error.log')
-$url = [regex]::Match($tunnelLog, 'https://[a-z-]+\.trycloudflare\.com').Value
+$url = [regex]::Match($tunnelLog, 'https://[a-z]+(?:-[a-z]+)+\.trycloudflare\.com').Value
 if (!$url) { throw 'No tunnel URL yet. Wait for cloudflared to start.' }
 $key = (Get-Content -Raw (Join-Path $runtime 'access-key.txt')).Trim()
 $connection = @{url="$url/api/v1";token=$key} | ConvertTo-Json -Compress

@@ -12,6 +12,8 @@ Prerequisites: Azure CLI login, backend Python environment, local Ollama with `q
 
 The computer must remain awake and online. Quick Tunnels are temporary development tunnels; their address changes on restart. Regenerate the private launcher afterward. A named tunnel is needed for a stable address. Requests without the access key receive 401, and raw Ollama is not exposed. Treat the access key and launcher as private. Neither is committed or deployed.
 
+If requesting a Quick Tunnel times out, run `./infra/restart-local-tunnel.ps1`, then regenerate the launcher. This restarts only the tunnel, leaving inference and document processing running.
+
 The single local worker uses a SQLite Celery queue in `.local-bridge/` rather than a cloud Redis service. Do not run multiple copies. Logs and queue state live in that ignored directory. GPU model downloads may be needed on first document processing. Windows Celery uses the solo pool.
 
 Frontend deployment must include the connection controls. Keep `VITE_API_BASE_URL` pointing at the Azure backend and `VITE_DEPLOYMENT_MODE=cloud_infrastructure`; the authenticated per-tab local connection overrides them. Future CI deployments must include these source changes.
