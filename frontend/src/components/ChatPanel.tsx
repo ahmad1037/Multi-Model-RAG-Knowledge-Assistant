@@ -10,6 +10,7 @@ import type {
 import {
   sendMessage,
 } from "../api/client";
+import { localConnection } from "../api/connection";
 import type {
   SourceCitation,
 } from "../api/types";
@@ -42,7 +43,7 @@ export function ChatPanel({
   const cloudInfrastructureMode =
     import.meta.env
       .VITE_DEPLOYMENT_MODE
-    === "cloud_infrastructure";
+    === "cloud_infrastructure" && !localConnection();
   const activeRequest = useRef<AbortController | null>(null);
   const [verifyGrounding, setVerifyGrounding] = useState(true);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);

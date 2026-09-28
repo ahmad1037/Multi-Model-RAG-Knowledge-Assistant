@@ -8,10 +8,7 @@ import type {
   ProcessingJob,
 } from "./types";
 
-const API_BASE_URL = (
-  import.meta.env.VITE_API_BASE_URL ??
-  "http://localhost:8000/api/v1"
-).replace(/\/$/, "");
+import { apiBaseUrl, apiHeaders } from "./connection";
 
 export interface ApiResponse<T> {
   data: T;
@@ -24,8 +21,8 @@ async function apiRequest<T>(
 ): Promise<ApiResponse<T>> {
   
   const response = await fetch(
-    `${API_BASE_URL}${path}`,
-    options,
+    `${apiBaseUrl()}${path}`,
+    { ...options, headers: apiHeaders(options?.headers) },
   );
 
   const requestId = response.headers.get(

@@ -1,6 +1,4 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ??
-  "http://localhost:8000/api/v1";
+import { apiBaseUrl, apiHeaders } from "../api/connection";
 
 
 export type HealthResponse = {
@@ -11,7 +9,7 @@ export type HealthResponse = {
 
 export async function getBackendHealth(): Promise<HealthResponse> {
   const response = await fetch(
-    `${API_BASE_URL}/health/live`
+    `${apiBaseUrl()}/health/live`, { headers: apiHeaders() }
   );
 
   if (!response.ok) {

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { apiBaseUrl, apiHeaders } from "../api/connection";
 import type {
   SourceCitation,
 } from "../api/types";
@@ -14,6 +16,23 @@ interface Props {
 export function SourcePanel({
   source,
 }: Props) {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  useEffect(() => {
+    setImageUrl(null);
+    if (!source?.visual_asset_id) return;
+    const controller = new AbortController();
+    let objectUrl: string | undefined;
+    void fetch(`${apiBaseUrl()}/visual-assets/${source.visual_asset_id}/content`, {
+      headers: apiHeaders(), signal: controller.signal,
+    }).then(response => {
+      if (!response.ok) throw new Error("Source image unavailable");
+      return response.blob();
+    }).then(blob => {
+      if (controller.signal.aborted) return;
+      objectUrl = URL.createObjectURL(blob); setImageUrl(objectUrl);
+    }).catch(() => { /* The citation text remains available. */ });
+    return () => { controller.abort(); if (objectUrl) URL.revokeObjectURL(objectUrl); };
+  }, [source?.visual_asset_id]);
 
   if (!source) {
 
@@ -30,12 +49,6 @@ export function SourcePanel({
       </aside>
     );
   }
-
-
-  const apiBase =
-    import.meta.env
-      .VITE_API_BASE_URL ??
-    "http://localhost:8000/api/v1";
 
 
   return (
@@ -78,15 +91,11 @@ export function SourcePanel({
       </p>
 
 
-      {source.visual_asset_id && (
+      {imageUrl && (
 
         <img
 
-          src={
-            `${apiBase}/visual-assets/`
-            + `${source.visual_asset_id}`
-            + "/content"
-          }
+          src={imageUrl}
 
           alt="Retrieved visual evidence"
 

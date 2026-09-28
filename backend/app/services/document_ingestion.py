@@ -1,4 +1,5 @@
 import logging
+import hashlib
 import uuid
 
 from fastapi import UploadFile
@@ -240,6 +241,19 @@ def extract_stored_document(
         absolute_path = storage.resolve(
             document.storage_path
         )
+
+        # Cloud uploads live in Blob Storage; local inference needs a disk copy.
+        if settings.storage_backend == "azure_blob" and not absolute_path.exists():
+            content = get_azure_blob_storage().download_bytes(document.storage_path)
+            if document.checksum_sha256 and hashlib.sha256(content).hexdigest() != document.checksum_sha256:
+                raise ValueError("Stored document checksum does not match the uploaded file.")
+            absolute_path.parent.mkdir(parents=True, exist_ok=True)
+            temporary_path = absolute_path.with_name(f"{absolute_path.name}.{uuid.uuid4().hex}.tmp")
+            try:
+                temporary_path.write_bytes(content)
+                temporary_path.replace(absolute_path)
+            finally:
+                temporary_path.unlink(missing_ok=True)
 
         result = parse_document(
             file_path=absolute_path,

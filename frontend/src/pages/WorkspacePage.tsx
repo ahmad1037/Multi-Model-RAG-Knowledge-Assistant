@@ -1,4 +1,5 @@
 import { KnowledgeBaseControls } from "../components/KnowledgeBaseControls";
+import { LocalConnectionControls } from "../components/LocalConnectionControls";
 import {
   useEffect,
   useRef,
@@ -197,6 +198,7 @@ export function WorkspacePage() {
         </div>
 
         <CloudModeBanner />
+        <LocalConnectionControls />
 
         {error && (
           <div className="workspace-error" role="alert">
